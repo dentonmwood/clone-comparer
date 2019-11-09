@@ -1,0 +1,11 @@
+package com.csi.czech.reader;
+
+import com.csi.czech.Clone;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+public interface CloneReader {
+    List<Clone> readClones(File file) throws IOException;
+}
