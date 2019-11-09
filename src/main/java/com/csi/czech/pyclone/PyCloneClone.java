@@ -1,18 +1,18 @@
-package com.csi.czech;
+package com.csi.czech.pyclone;
 
-import com.csi.czech.pyclone.Origin;
+import com.csi.czech.common.Clone;
+import com.csi.czech.common.Source;
 
 import java.util.List;
 
-public class Clone {
+public class PyCloneClone extends Clone {
     private String value;
     private Long matchWeight;
-    private List<Origin> origins;
 
-    public Clone(String value, Long matchWeight, List<Origin> origins) {
+    public PyCloneClone(List<Source> origins, String value, Long matchWeight) {
+        super(origins);
         this.value = value;
         this.matchWeight = matchWeight;
-        this.origins = origins;
     }
 
     public String getValue() {
@@ -23,16 +23,12 @@ public class Clone {
         return this.matchWeight;
     }
 
-    public List<Origin> getOrigins() {
-        return this.origins;
-    }
-
     @Override
     public String toString() {
         StringBuilder ret = new StringBuilder();
-        ret.append("Clone: ").append(this.value)
-                .append(", ").append(this.matchWeight).append(", origins: ").append("\n");
-        for (Origin origin: this.origins) {
+        ret.append("PyClone Clone: value: ").append(this.value)
+                .append(", match weight: ").append(this.matchWeight).append(", origins: ").append("\n");
+        for (Source origin: this.sources) {
             ret.append(origin.toString());
         }
         return ret.toString();

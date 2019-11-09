@@ -1,5 +1,7 @@
 package com.csi.czech;
 
+import com.csi.czech.common.Clone;
+import com.csi.czech.reader.NiCadCloneReader;
 import com.csi.czech.reader.PyCloneCloneReader;
 import org.json.simple.parser.JSONParser;
 
@@ -13,6 +15,13 @@ public class CloneComparer {
         PyCloneCloneReader pyCloneCloneReader = new PyCloneCloneReader(new JSONParser());
         List<Clone> pyCloneClones = pyCloneCloneReader.readClones(pyCloneFile);
         for (Clone clone: pyCloneClones) {
+            System.out.println(clone);
+        }
+
+        File niCadFile = new File(args[1]);
+        NiCadCloneReader niCadCloneReader = new NiCadCloneReader();
+        List<Clone> niCadClones = niCadCloneReader.readClones(niCadFile);
+        for (Clone clone: niCadClones) {
             System.out.println(clone);
         }
     }

@@ -1,7 +1,9 @@
 package com.csi.czech.reader;
 
-import com.csi.czech.Clone;
-import com.csi.czech.pyclone.Origin;
+import com.csi.czech.common.Clone;
+import com.csi.czech.common.Source;
+import com.csi.czech.pyclone.PyCloneClone;
+import com.csi.czech.pyclone.PyCloneSource;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -37,7 +39,7 @@ public class PyCloneCloneReader implements CloneReader {
                 Long matchWeight = (Long) object.get("match_weight");
                 JSONObject originObject = (JSONObject) object.get("origins");
                 Set<String> originKeys = originObject.keySet();
-                List<Origin> origins = new ArrayList<>();
+                List<Source> origins = new ArrayList<>();
                 for (String originKey: originKeys) {
                     Pattern p = Pattern.compile("([^ ]*) \\(L: ([0-9]*) C: ([0-9]*)\\)");
                     Matcher m = p.matcher(originKey);
@@ -45,12 +47,12 @@ public class PyCloneCloneReader implements CloneReader {
                         String filename = m.group(1);
                         Long lineNumber = Long.parseLong(m.group(2));
                         Long columnNumber = Long.parseLong(m.group(3));
-                        origins.add(new Origin(filename, lineNumber, columnNumber));
+                        origins.add(new PyCloneSource(filename, lineNumber, columnNumber));
                     } else {
                         throw new IOException("Improper filename given");
                     }
                 }
-                clones.add(new Clone(value, matchWeight, origins));
+                clones.add(new PyCloneClone(origins, value, matchWeight));
             }
             return clones;
         } catch (ParseException e) {
