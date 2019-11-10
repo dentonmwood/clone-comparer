@@ -28,8 +28,10 @@ public class PyCloneCloneReader implements CloneReader {
         https://stackoverflow.com/questions/9151619/how-to-iterate-over-a-jsonobject
         https://stackoverflow.com/questions/29454663/using-java-regex-read-a-text-file-to-match-multiple-patterns
      */
-    public List<Clone> readClones(File file) throws IOException {
+    @Override
+    public List<Clone> readClones(String inputFilename) throws IOException {
         try {
+            File file = new File(inputFilename);
             JSONArray array = (JSONArray) this.jsonParser.parse(new FileReader(file));
 
             List<Clone> clones = new ArrayList<>();

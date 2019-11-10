@@ -22,6 +22,6 @@ public class NiCadSource extends Source {
 
     @Override
     public String toString() {
-        return "Origin: " + this.filename + ": " + this.startLine + "-" + this.endLine + ", ID=" + this.pcId;
+        return "Source: " + this.filename + ": " + this.startLine + "-" + this.endLine + ", ID=" + this.pcId;
     }
 }

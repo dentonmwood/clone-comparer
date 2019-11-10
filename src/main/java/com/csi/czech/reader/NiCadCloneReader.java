@@ -16,7 +16,8 @@ import java.util.List;
  */
 public class NiCadCloneReader implements CloneReader {
     @Override
-    public List<Clone> readClones(File file) throws IOException {
+    public List<Clone> readClones(String inputFilename) throws IOException {
+        File file = new File(inputFilename);
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         try {
             SAXParser saxParser = saxParserFactory.newSAXParser();

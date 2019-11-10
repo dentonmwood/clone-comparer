@@ -16,6 +16,6 @@ public class PyCloneSource extends Source {
 
     @Override
     public String toString() {
-        return "Origin: " + filename + " @ " + startLine + ":" + columnNumber + "\n";
+        return "Source: " + filename + " @ " + startLine + ":" + columnNumber + "\n";
     }
 }
