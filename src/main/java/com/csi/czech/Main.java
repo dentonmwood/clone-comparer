@@ -1,6 +1,7 @@
 package com.csi.czech;
 
 import com.csi.czech.common.Clone;
+import com.csi.czech.comparer.CloneComparer;
 import com.csi.czech.reader.MossCloneReader;
 import com.csi.czech.reader.NiCadCloneReader;
 import com.csi.czech.reader.PyCloneCloneReader;
@@ -24,45 +25,45 @@ public class Main {
         String mossUrl = args[4];
 
         PyCloneCloneReader pyCloneCloneReader = new PyCloneCloneReader(new JSONParser());
-        System.out.println("Getting PyClone Oxygen clones");
         List<Clone> pyCloneOxygenClones = pyCloneCloneReader.readClones(pyCloneOxygenFile);
-        System.out.println("Getting PyClone Chlorine clones");
         List<Clone> pyCloneChlorineClones = pyCloneCloneReader.readClones(pyCloneChlorineFile);
 
         NiCadCloneReader niCadCloneReader = new NiCadCloneReader();
-        System.out.println("Getting NiCad block clones");
         List<Clone> nicadBlockClones = niCadCloneReader.readClones(niCadBlocksFile);
-        System.out.println("Getting NiCad function clones");
         List<Clone> nicadFunctionClones = niCadCloneReader.readClones(niCadFunctionsFile);
 
         MossCloneReader mossCloneReader = new MossCloneReader(new WebClient());
-        System.out.println("Getting Moss clones");
         List<Clone> mossClones = mossCloneReader.readClones(mossUrl);
-        System.out.println("Done");
 
-        System.out.println("PyClone - Oxygen");
-        for (Clone clone: pyCloneOxygenClones) {
-            System.out.println(clone);
-        }
+        CloneComparer comparer = new CloneComparer();
+        double percentOxygenBlock = comparer.compareCloneLists(pyCloneOxygenClones, nicadBlockClones);
+        double percentBlockOxygen = comparer.compareCloneLists(nicadBlockClones, pyCloneOxygenClones);
+        double percentOxygenFunction = comparer.compareCloneLists(pyCloneOxygenClones, nicadFunctionClones);
+        double percentFunctionOxygen = comparer.compareCloneLists(nicadBlockClones, pyCloneOxygenClones);
+        double percentOxygenMoss = comparer.compareCloneLists(pyCloneOxygenClones, mossClones);
+        double percentMossOxygen = comparer.compareCloneLists(mossClones, pyCloneOxygenClones);
 
-        System.out.println("PyClone - Chlorine");
-        for (Clone clone: pyCloneChlorineClones) {
-            System.out.println(clone);
-        }
+        double percentChlorineBlock = comparer.compareCloneLists(pyCloneChlorineClones, nicadBlockClones);
+        double percentBlockChlorine = comparer.compareCloneLists(nicadBlockClones, pyCloneChlorineClones);
+        double percentChlorineFunction = comparer.compareCloneLists(pyCloneChlorineClones, nicadFunctionClones);
+        double percentFunctionChlorine = comparer.compareCloneLists(nicadFunctionClones, pyCloneChlorineClones);
+        double percentChlorineMoss = comparer.compareCloneLists(pyCloneChlorineClones, mossClones);
+        double percentMossChlorine = comparer.compareCloneLists(mossClones, pyCloneChlorineClones);
 
-        System.out.println("NiCad - Function");
-        for (Clone clone: nicadFunctionClones) {
-            System.out.println(clone);
-        }
+        StringBuilder results = new StringBuilder();
+        results.append(percentOxygenBlock).append(",")
+                .append(percentBlockOxygen).append(",")
+                .append(percentOxygenFunction).append(",")
+                .append(percentFunctionOxygen).append(",")
+                .append(percentOxygenMoss).append(",")
+                .append(percentMossOxygen).append(",")
+                .append(percentChlorineBlock).append(",")
+                .append(percentBlockChlorine).append(",")
+                .append(percentChlorineFunction).append(",")
+                .append(percentFunctionChlorine).append(",")
+                .append(percentChlorineMoss).append(",")
+                .append(percentMossChlorine);
 
-        System.out.println("NiCad - Block");
-        for (Clone clone: nicadBlockClones) {
-            System.out.println(clone);
-        }
-
-        System.out.println("Moss");
-        for (Clone clone: mossClones) {
-            System.out.println(clone);
-        }
+        System.out.println(results.toString());
     }
 }

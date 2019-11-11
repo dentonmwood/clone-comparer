@@ -12,6 +12,7 @@ import java.util.List;
 
 /*
     Taken from https://www.journaldev.com/1198/java-sax-parser-example
+    https://alvinalexander.com/java/java-strip-characters-string-letters-numbers-replace
  */
 public class NiCadCloneHandler extends DefaultHandler {
     private List<NiCadClone> clones;
