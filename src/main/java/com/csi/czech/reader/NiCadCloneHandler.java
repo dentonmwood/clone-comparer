@@ -35,7 +35,7 @@ public class NiCadCloneHandler extends DefaultHandler {
             this.clone = new NiCadClone(numLines, similarity);
         } else if (qName.equalsIgnoreCase("source")) {
             String filePath = attributes.getValue("file");
-            String filename = FilenameUtils.getName(filePath);
+            String filename = FilenameUtils.getName(filePath).replaceAll(".pyindent", "");
             Long startLine = Long.parseLong(attributes.getValue("startline"));
             Long endLine = Long.parseLong(attributes.getValue("endline"));
             Long pcId = Long.parseLong(attributes.getValue("pcid"));
