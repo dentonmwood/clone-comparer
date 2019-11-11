@@ -6,12 +6,11 @@ import com.csi.czech.moss.MossClone;
 import com.csi.czech.moss.MossSource;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,6 +19,7 @@ import java.util.regex.Pattern;
     https://ksah.in/introduction-to-web-scraping-with-java/
     https://www.geeksforgeeks.org/how-to-remove-duplicates-from-arraylist-in-java/
     https://www.roseindia.net/tutorials/xPath/using-nameXPath.shtml
+    https://stackoverflow.com/questions/14526260/how-do-i-get-the-file-name-from-a-string-containing-the-absolute-file-path
  */
 public class MossCloneReader implements CloneReader {
     private WebClient client;
@@ -69,7 +69,8 @@ public class MossCloneReader implements CloneReader {
             Pattern p = Pattern.compile("([^ ]*) \\(([0-9]+)%\\)");
             Matcher m = p.matcher(text);
             if (m.matches()) {
-                filenames.add(m.group(1));
+                String filename = FilenameUtils.getName(m.group(1));
+                filenames.add(filename);
                 percentMatches.add(Integer.parseInt(m.group(2)));
             }
         }

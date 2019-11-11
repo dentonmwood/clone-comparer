@@ -4,6 +4,7 @@ import com.csi.czech.common.Clone;
 import com.csi.czech.common.Source;
 import com.csi.czech.pyclone.PyCloneClone;
 import com.csi.czech.pyclone.PyCloneSource;
+import org.apache.commons.io.FilenameUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -40,25 +41,49 @@ public class PyCloneCloneReader implements CloneReader {
                 String value = (String) object.get("value");
                 Long matchWeight = (Long) object.get("match_weight");
                 JSONObject originObject = (JSONObject) object.get("origins");
-                Set<String> originKeys = originObject.keySet();
-                List<Source> origins = new ArrayList<>();
-                for (String originKey: originKeys) {
-                    Pattern p = Pattern.compile("([^ ]*) \\(L: ([0-9]*) C: ([0-9]*)\\)");
-                    Matcher m = p.matcher(originKey);
-                    if (m.matches()) {
-                        String filename = m.group(1);
-                        Long lineNumber = Long.parseLong(m.group(2));
-                        Long columnNumber = Long.parseLong(m.group(3));
-                        origins.add(new PyCloneSource(filename, lineNumber, columnNumber));
-                    } else {
-                        throw new IOException("Improper filename given");
-                    }
-                }
-                clones.add(new PyCloneClone(origins, value, matchWeight));
+
+                List<Source> origins = getOrigins(originObject.keySet(), value);
+                addClones(origins, clones, value, matchWeight);
             }
             return clones;
         } catch (ParseException e) {
             throw new IOException("Unable to parse JSON file: " + e.getMessage());
+        }
+    }
+
+    private List<Source> getOrigins(Set<String> originKeys, String value) throws IOException {
+        List<Source> origins = new ArrayList<>();
+        for (String originKey: originKeys) {
+            Pattern p = Pattern.compile("([^ ]*) \\(L: ([0-9]*) C: ([0-9]*)\\)");
+            Matcher m = p.matcher(originKey);
+            if (m.matches()) {
+                String filepath = m.group(1);
+                String filename = FilenameUtils.getName(filepath);
+                Long lineNumber = Long.parseLong(m.group(2));
+                Long columnNumber = Long.parseLong(m.group(3));
+                origins.add(new PyCloneSource(filename, lineNumber, columnNumber));
+            } else if (value.equals("FunctionDef")) {
+                // The clone identifies a function. Not much we can do here for now
+                // TODO: add lines to function node
+                origins.add(new PyCloneSource(originKey, 0L, 0L));
+            } else {
+                throw new IOException("Improper filename given: " + originKey);
+            }
+        }
+        return origins;
+    }
+
+    private void addClones(List<Source> origins, List<Clone> clones, String value, Long matchWeight) {
+        // For comparison to other tools, create a clone for each two origins
+        for (Source origin1: origins) {
+            for (Source origin2: origins) {
+                if (!origin1.equals(origin2)) {
+                    List<Source> sources = new ArrayList<>(2);
+                    sources.add(origin1);
+                    sources.add(origin2);
+                    clones.add(new PyCloneClone(sources, value, matchWeight));
+                }
+            }
         }
     }
 }

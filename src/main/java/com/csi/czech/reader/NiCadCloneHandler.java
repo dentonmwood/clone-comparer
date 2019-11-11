@@ -2,6 +2,7 @@ package com.csi.czech.reader;
 
 import com.csi.czech.nicad.NiCadClone;
 import com.csi.czech.nicad.NiCadSource;
+import org.apache.commons.io.FilenameUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -33,11 +34,12 @@ public class NiCadCloneHandler extends DefaultHandler {
             Long similarity = Long.parseLong(attributes.getValue("similarity"));
             this.clone = new NiCadClone(numLines, similarity);
         } else if (qName.equalsIgnoreCase("source")) {
-            String file = attributes.getValue("file");
+            String filePath = attributes.getValue("file");
+            String filename = FilenameUtils.getName(filePath);
             Long startLine = Long.parseLong(attributes.getValue("startline"));
             Long endLine = Long.parseLong(attributes.getValue("endline"));
             Long pcId = Long.parseLong(attributes.getValue("pcid"));
-            this.clone.addSource(new NiCadSource(file, startLine, endLine, pcId));
+            this.clone.addSource(new NiCadSource(filename, startLine, endLine, pcId));
         }
         this.data = new StringBuilder();
     }
