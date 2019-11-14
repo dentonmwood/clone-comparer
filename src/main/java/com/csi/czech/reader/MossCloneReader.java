@@ -10,7 +10,9 @@ import org.apache.commons.io.FilenameUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -80,7 +82,7 @@ public class MossCloneReader implements CloneReader {
             List<HtmlTableDataCell> tableData = tableRow.getByXPath("td");
             // Header row will not have any data cells
             if (tableData.size() > 0) {
-                List<Source> sources = new ArrayList<>();
+                Set<Source> sources = new HashSet<>();
                 int i = 0;
                 // Get the file sources
                 for (HtmlTableDataCell dataCell: tableData) {

@@ -30,9 +30,12 @@ public abstract class Source {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Source source = (Source) o;
-        return Objects.equals(filename, source.filename) &&
-                Objects.equals(startLine, source.startLine) &&
-                Objects.equals(endLine, source.endLine);
+
+        if (!source.getFilename().equals(this.filename)) {
+            return false;
+        }
+
+        return Math.abs(source.getStartLine() - this.startLine) < 10;
     }
 
     @Override

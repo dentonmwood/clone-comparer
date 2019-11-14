@@ -3,13 +3,13 @@ package com.csi.czech.pyclone;
 import com.csi.czech.common.Clone;
 import com.csi.czech.common.Source;
 
-import java.util.List;
+import java.util.Set;
 
 public class PyCloneClone extends Clone {
     private String value;
     private Long matchWeight;
 
-    public PyCloneClone(List<Source> origins, String value, Long matchWeight) {
+    public PyCloneClone(Set<Source> origins, String value, Long matchWeight) {
         super(origins);
         this.value = value;
         this.matchWeight = matchWeight;

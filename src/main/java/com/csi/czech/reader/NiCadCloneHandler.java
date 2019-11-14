@@ -17,7 +17,6 @@ import java.util.List;
 public class NiCadCloneHandler extends DefaultHandler {
     private List<NiCadClone> clones;
     private NiCadClone clone;
-    private NiCadSource source;
     private StringBuilder data = null;
 
     public List<NiCadClone> getClones() {

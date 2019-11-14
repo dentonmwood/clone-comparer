@@ -13,6 +13,7 @@ import java.util.List;
 
 /*
     Taken from https://www.journaldev.com/1198/java-sax-parser-example
+    https://ksah.in/introduction-to-web-scraping-with-java/
  */
 public class NiCadCloneReader implements CloneReader {
     @Override

@@ -1,16 +1,16 @@
 package com.csi.czech.common;
 
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public abstract class Clone {
-    protected List<Source> sources;
+    protected Set<Source> sources;
 
-    public Clone(List<Source> sources) {
+    public Clone(Set<Source> sources) {
         this.sources = sources;
     }
 
-    public List<Source> getSources() {
+    public Set<Source> getSources() {
         return this.sources;
     }
 

@@ -42,7 +42,7 @@ public class PyCloneCloneReader implements CloneReader {
                 Long matchWeight = (Long) object.get("match_weight");
                 JSONObject originObject = (JSONObject) object.get("origins");
 
-                List<Source> origins = getOrigins(originObject.keySet(), value);
+                List<Source> origins = this.getOrigins(originObject.keySet(), value);
                 addClones(origins, clones, value, matchWeight);
             }
             return clones;
@@ -78,10 +78,15 @@ public class PyCloneCloneReader implements CloneReader {
         for (Source origin1: origins) {
             for (Source origin2: origins) {
                 if (!origin1.equals(origin2)) {
-                    List<Source> sources = new ArrayList<>(2);
+                    // Implemented as a set to make sure no duplicates
+                    Set<Source> sources = new HashSet<>(2);
                     sources.add(origin1);
                     sources.add(origin2);
-                    clones.add(new PyCloneClone(sources, value, matchWeight));
+                    Clone clone = new PyCloneClone(sources, value, matchWeight);
+
+                    if (!clones.contains(clone)) {
+                        clones.add(clone);
+                    }
                 }
             }
         }
