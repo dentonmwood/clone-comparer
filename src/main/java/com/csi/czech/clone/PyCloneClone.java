@@ -1,7 +1,6 @@
-package com.csi.czech.pyclone;
+package com.csi.czech.clone;
 
-import com.csi.czech.common.Clone;
-import com.csi.czech.common.Source;
+import com.csi.czech.source.Source;
 
 public class PyCloneClone extends Clone {
     private String value;

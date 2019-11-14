@@ -1,9 +1,9 @@
 package com.csi.czech.reader;
 
-import com.csi.czech.common.Clone;
-import com.csi.czech.common.Source;
-import com.csi.czech.pyclone.PyCloneClone;
-import com.csi.czech.pyclone.PyCloneSource;
+import com.csi.czech.clone.Clone;
+import com.csi.czech.source.Source;
+import com.csi.czech.clone.PyCloneClone;
+import com.csi.czech.source.PyCloneSource;
 import org.apache.commons.io.FilenameUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

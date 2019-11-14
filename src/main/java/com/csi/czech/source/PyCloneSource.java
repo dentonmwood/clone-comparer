@@ -1,6 +1,4 @@
-package com.csi.czech.pyclone;
-
-import com.csi.czech.common.Source;
+package com.csi.czech.source;
 
 public class PyCloneSource extends Source {
     private Long columnNumber;

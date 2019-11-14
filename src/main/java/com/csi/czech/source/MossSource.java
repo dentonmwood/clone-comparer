@@ -1,6 +1,4 @@
-package com.csi.czech.moss;
-
-import com.csi.czech.common.Source;
+package com.csi.czech.source;
 
 public class MossSource extends Source {
     public MossSource(String filename, Long startLine, Long endLine) {

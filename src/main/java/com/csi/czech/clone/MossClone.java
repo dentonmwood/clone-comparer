@@ -1,7 +1,6 @@
-package com.csi.czech.moss;
+package com.csi.czech.clone;
 
-import com.csi.czech.common.Clone;
-import com.csi.czech.common.Source;
+import com.csi.czech.source.Source;
 
 public class MossClone extends Clone {
     public MossClone() {

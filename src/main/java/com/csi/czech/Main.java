@@ -1,6 +1,6 @@
 package com.csi.czech;
 
-import com.csi.czech.common.Clone;
+import com.csi.czech.clone.Clone;
 import com.csi.czech.comparer.CloneComparer;
 import com.csi.czech.reader.MossCloneReader;
 import com.csi.czech.reader.NiCadCloneReader;

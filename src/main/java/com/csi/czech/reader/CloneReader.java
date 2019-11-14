@@ -1,8 +1,7 @@
 package com.csi.czech.reader;
 
-import com.csi.czech.common.Clone;
+import com.csi.czech.clone.Clone;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 

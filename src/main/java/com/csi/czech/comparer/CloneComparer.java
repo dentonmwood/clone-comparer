@@ -1,6 +1,6 @@
 package com.csi.czech.comparer;
 
-import com.csi.czech.common.Clone;
+import com.csi.czech.clone.Clone;
 
 import java.util.HashMap;
 import java.util.List;

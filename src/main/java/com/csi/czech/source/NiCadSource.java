@@ -1,6 +1,4 @@
-package com.csi.czech.nicad;
-
-import com.csi.czech.common.Source;
+package com.csi.czech.source;
 
 public class NiCadSource extends Source {
     private Long pcId;

@@ -1,6 +1,6 @@
 package com.csi.czech.reader;
 
-import com.csi.czech.common.Clone;
+import com.csi.czech.clone.Clone;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;

@@ -1,7 +1,7 @@
 package com.csi.czech.reader;
 
-import com.csi.czech.nicad.NiCadClone;
-import com.csi.czech.nicad.NiCadSource;
+import com.csi.czech.clone.NiCadClone;
+import com.csi.czech.source.NiCadSource;
 import org.apache.commons.io.FilenameUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;

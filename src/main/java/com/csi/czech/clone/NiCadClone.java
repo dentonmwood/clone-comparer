@@ -1,9 +1,6 @@
-package com.csi.czech.nicad;
+package com.csi.czech.clone;
 
-import com.csi.czech.common.Clone;
-import com.csi.czech.common.Source;
-
-import java.util.Set;
+import com.csi.czech.source.Source;
 
 public class NiCadClone extends Clone {
     private Long similarity;

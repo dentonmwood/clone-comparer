@@ -1,18 +1,15 @@
 package com.csi.czech.reader;
 
-import com.csi.czech.common.Clone;
-import com.csi.czech.common.Source;
-import com.csi.czech.moss.MossClone;
-import com.csi.czech.moss.MossSource;
+import com.csi.czech.clone.Clone;
+import com.csi.czech.clone.MossClone;
+import com.csi.czech.source.MossSource;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
