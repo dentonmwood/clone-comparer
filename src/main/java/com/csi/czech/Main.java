@@ -27,9 +27,6 @@ public class Main {
         PyCloneCloneReader pyCloneCloneReader = new PyCloneCloneReader(new JSONParser());
         List<Clone> pyCloneOxygenClones = pyCloneCloneReader.readClones(pyCloneOxygenFile);
         List<Clone> pyCloneChlorineClones = pyCloneCloneReader.readClones(pyCloneChlorineFile);
-        for (Clone clone: pyCloneChlorineClones) {
-            System.out.println(clone);
-        }
 
         NiCadCloneReader niCadCloneReader = new NiCadCloneReader();
         List<Clone> nicadBlockClones = niCadCloneReader.readClones(niCadBlocksFile);

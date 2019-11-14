@@ -1,25 +1,33 @@
 package com.csi.czech.common;
 
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public abstract class Clone {
-    protected Set<Source> sources;
+    protected Queue<Source> sources;
 
-    public Clone(Set<Source> sources) {
-        this.sources = sources;
+    public Clone() {
+        this.sources = new PriorityQueue<>();
     }
 
-    public Set<Source> getSources() {
+    public void addSource(Source source) {
+        this.sources.add(source);
+    }
+
+    public Queue<Source> getSources() {
         return this.sources;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+
         Clone clone = (Clone) o;
-        return Objects.equals(sources, clone.sources);
+
+        // I need to guarantee that the equals() method of Source gets called
+        List sources1 = Arrays.asList(this.sources.toArray());
+        List sources2 = Arrays.asList(clone.sources.toArray());
+
+        return sources1.equals(sources2);
     }
 
     @Override

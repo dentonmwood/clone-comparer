@@ -82,7 +82,7 @@ public class MossCloneReader implements CloneReader {
             List<HtmlTableDataCell> tableData = tableRow.getByXPath("td");
             // Header row will not have any data cells
             if (tableData.size() > 0) {
-                Set<Source> sources = new HashSet<>();
+                Clone clone = new MossClone();
                 int i = 0;
                 // Get the file sources
                 for (HtmlTableDataCell dataCell: tableData) {
@@ -94,11 +94,11 @@ public class MossCloneReader implements CloneReader {
                     if (m.matches()) {
                         Long startLine = Long.parseLong(m.group(1));
                         Long endLine = Long.parseLong(m.group(2));
-                        sources.add(new MossSource(filenames.get(i), startLine, endLine));
+                        clone.addSource(new MossSource(filenames.get(i), startLine, endLine));
                         i++;
                     }
                 }
-                clones.add(new MossClone(sources));
+                clones.add(clone);
             }
         }
         return clones;

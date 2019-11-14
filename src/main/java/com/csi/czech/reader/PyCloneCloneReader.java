@@ -79,10 +79,9 @@ public class PyCloneCloneReader implements CloneReader {
             for (Source origin2: origins) {
                 if (!origin1.equals(origin2)) {
                     // Implemented as a set to make sure no duplicates
-                    Set<Source> sources = new HashSet<>(2);
-                    sources.add(origin1);
-                    sources.add(origin2);
-                    Clone clone = new PyCloneClone(sources, value, matchWeight);
+                    Clone clone = new PyCloneClone(value, matchWeight);
+                    clone.addSource(origin1);
+                    clone.addSource(origin2);
 
                     if (!clones.contains(clone)) {
                         clones.add(clone);

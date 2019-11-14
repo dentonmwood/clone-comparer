@@ -3,11 +3,9 @@ package com.csi.czech.moss;
 import com.csi.czech.common.Clone;
 import com.csi.czech.common.Source;
 
-import java.util.Set;
-
 public class MossClone extends Clone {
-    public MossClone(Set<Source> sources) {
-        super(sources);
+    public MossClone() {
+        super();
     }
 
     @Override
