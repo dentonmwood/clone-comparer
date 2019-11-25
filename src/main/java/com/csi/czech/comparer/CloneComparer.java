@@ -8,6 +8,15 @@ import java.util.Map;
 
 public class CloneComparer {
     public double compareCloneLists(List<Clone> cloneList1, List<Clone> cloneList2) {
+        if (cloneList1.size() == 0 || cloneList2.size() == 0) {
+            if (cloneList1.size() == 0 && cloneList2.size() == 0) {
+                // They caught the same clones, technically
+                return 1.0;
+            }
+            // One of these is bad
+            return 0.0;
+        }
+
         Map<Clone, Clone> cloneMap = new HashMap<>();
         for (Clone clone1: cloneList1) {
             for (Clone clone2: cloneList2) {

@@ -62,12 +62,10 @@ public class PyCloneCloneReader implements CloneReader {
                 Long lineNumber = Long.parseLong(m.group(2));
                 Long columnNumber = Long.parseLong(m.group(3));
                 origins.add(new PyCloneSource(filename, lineNumber, columnNumber));
-            } else if (value.equals("FunctionDef")) {
-                // The clone identifies a function. Not much we can do here for now
+            } else {
+                // The clone identifies a function or module. Not much we can do here for now
                 // TODO: add lines to function node
                 origins.add(new PyCloneSource(originKey, 0L, 0L));
-            } else {
-                throw new IOException("Improper filename given: " + originKey);
             }
         }
         return origins;

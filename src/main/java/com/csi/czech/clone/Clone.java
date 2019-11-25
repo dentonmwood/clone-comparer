@@ -4,6 +4,9 @@ import com.csi.czech.source.Source;
 
 import java.util.*;
 
+/**
+ * Represents a detected clone for any tool
+ */
 public abstract class Clone {
     protected Queue<Source> sources;
 

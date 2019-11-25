@@ -9,61 +9,125 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import org.json.simple.parser.JSONParser;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Main class - runs each of the comparer tools and prints a CSV line with
+ * the results. Can also be used to print a header line for the results.
+ */
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         if (args.length != 5) {
-            throw new IllegalArgumentException("Arguments: <pyclone oxygen file> <pyclone chlorine file> " +
-                    "<nicad blocks file> <nicad functions file> <moss file link>");
+            if (args.length == 1 && "header".equals(args[0])) {
+                printHeader();
+                return;
+            } else {
+                throw new IllegalArgumentException("Arguments: <pyclone oxygen file> <pyclone chlorine file> " +
+                        "<nicad blocks file> <nicad functions file> <moss file link>");
+            }
         }
 
+        // Grab command-line arguments
         String pyCloneOxygenFile = args[0];
         String pyCloneChlorineFile = args[1];
         String niCadBlocksFile = args[2];
         String niCadFunctionsFile = args[3];
         String mossUrl = args[4];
 
+        // Read the PyClone clones
+        List<List<Clone>> pyCloneClones = new ArrayList<>();
         PyCloneCloneReader pyCloneCloneReader = new PyCloneCloneReader(new JSONParser());
-        List<Clone> pyCloneOxygenClones = pyCloneCloneReader.readClones(pyCloneOxygenFile);
-        List<Clone> pyCloneChlorineClones = pyCloneCloneReader.readClones(pyCloneChlorineFile);
+        try {
+            pyCloneClones.add(pyCloneCloneReader.readClones(pyCloneOxygenFile));
+        } catch (IOException e) {
+            // We want empty percentages if it can't read
+            pyCloneClones.add(new ArrayList<>());
+        }
 
+        try {
+            pyCloneClones.add(pyCloneCloneReader.readClones(pyCloneChlorineFile));
+        } catch (IOException e) {
+            // We want empty percentages if it can't read
+            pyCloneClones.add(new ArrayList<>());
+        }
+
+        // Read benchmark tool clones
+        List<List<Clone>> benchmarkClones = new ArrayList<>();
+
+        // Read the NiCad clones
         NiCadCloneReader niCadCloneReader = new NiCadCloneReader();
-        List<Clone> nicadBlockClones = niCadCloneReader.readClones(niCadBlocksFile);
-        List<Clone> nicadFunctionClones = niCadCloneReader.readClones(niCadFunctionsFile);
+        try {
+            benchmarkClones.add(niCadCloneReader.readClones(niCadBlocksFile));
+        } catch (IOException e) {
+            benchmarkClones.add(new ArrayList<>());
+        }
+        try {
+            benchmarkClones.add(niCadCloneReader.readClones(niCadFunctionsFile));
+        } catch (IOException e) {
+            benchmarkClones.add(new ArrayList<>());
+        }
 
+        // Read the Moss clones
         MossCloneReader mossCloneReader = new MossCloneReader(new WebClient());
-        List<Clone> mossClones = mossCloneReader.readClones(mossUrl);
+        try {
+            benchmarkClones.add(mossCloneReader.readClones(mossUrl));
+        } catch (IOException e) {
+            benchmarkClones.add(new ArrayList<>());
+        }
 
+        // Compare the clones
         CloneComparer comparer = new CloneComparer();
-        double percentOxygenBlock = comparer.compareCloneLists(pyCloneOxygenClones, nicadBlockClones);
-        double percentBlockOxygen = comparer.compareCloneLists(nicadBlockClones, pyCloneOxygenClones);
-        double percentOxygenFunction = comparer.compareCloneLists(pyCloneOxygenClones, nicadFunctionClones);
-        double percentFunctionOxygen = comparer.compareCloneLists(nicadBlockClones, pyCloneOxygenClones);
-        double percentOxygenMoss = comparer.compareCloneLists(pyCloneOxygenClones, mossClones);
-        double percentMossOxygen = comparer.compareCloneLists(mossClones, pyCloneOxygenClones);
-
-        double percentChlorineBlock = comparer.compareCloneLists(pyCloneChlorineClones, nicadBlockClones);
-        double percentBlockChlorine = comparer.compareCloneLists(nicadBlockClones, pyCloneChlorineClones);
-        double percentChlorineFunction = comparer.compareCloneLists(pyCloneChlorineClones, nicadFunctionClones);
-        double percentFunctionChlorine = comparer.compareCloneLists(nicadFunctionClones, pyCloneChlorineClones);
-        double percentChlorineMoss = comparer.compareCloneLists(pyCloneChlorineClones, mossClones);
-        double percentMossChlorine = comparer.compareCloneLists(mossClones, pyCloneChlorineClones);
+        List<Double> percentages = new ArrayList<>();
+        for (List<Clone> pyCloneList: pyCloneClones) {
+            for (List<Clone> benchmarkList: benchmarkClones) {
+                // Compare both ways
+                percentages.add(comparer.compareCloneLists(pyCloneList, benchmarkList));
+                percentages.add(comparer.compareCloneLists(benchmarkList, pyCloneList));
+            }
+        }
 
         StringBuilder results = new StringBuilder();
-        results.append(percentOxygenBlock).append(",")
-                .append(percentBlockOxygen).append(",")
-                .append(percentOxygenFunction).append(",")
-                .append(percentFunctionOxygen).append(",")
-                .append(percentOxygenMoss).append(",")
-                .append(percentMossOxygen).append(",")
-                .append(percentChlorineBlock).append(",")
-                .append(percentBlockChlorine).append(",")
-                .append(percentChlorineFunction).append(",")
-                .append(percentFunctionChlorine).append(",")
-                .append(percentChlorineMoss).append(",")
-                .append(percentMossChlorine);
+
+        // Print # of clones found by each tool
+        for (List<Clone> pyCloneList: pyCloneClones) {
+            results.append(pyCloneList.size()).append(",");
+        }
+        for (List<Clone> benchmarkList: benchmarkClones) {
+            results.append(benchmarkList.size()).append(",");
+        }
+
+        // Print % of similarity between tools
+        for (Double percentage: percentages) {
+            results.append(percentage).append(",");
+        }
 
         System.out.println(results.toString());
+    }
+
+    /**
+     * Prints the header line for the results. Useful for telling what's what.
+     */
+    public static void printHeader() {
+        StringBuilder header = new StringBuilder();
+        header
+                .append("# of Oxygen clones,")
+                .append("# of Chlorine clones,")
+                .append("# of NiCad Block clones,")
+                .append("# of NiCad Function Clones,")
+                .append("# of Moss Clones,")
+                .append("% of Oxygen in NiCad Block,")
+                .append("% of NiCad Block in Oxygen,")
+                .append("% of Oxygen in NiCad Function,")
+                .append("% of NiCad Function in Oxygen,")
+                .append("% of Oxygen in Moss,")
+                .append("% of Moss in Oxygen,")
+                .append("% of Chlorine in NiCad Block,")
+                .append("% of NiCad Block in Chlorine,")
+                .append("% of Chlorine in NiCad Function,")
+                .append("% of NiCad Function in Chlorine,")
+                .append("% of Chlorine in Moss,")
+                .append("% of Moss in Chlorine,");
+        System.out.println(header.toString());
     }
 }
