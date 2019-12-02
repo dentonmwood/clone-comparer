@@ -17,62 +17,50 @@ import java.util.List;
  * the results. Can also be used to print a header line for the results.
  */
 public class Main {
-    public static void main(String[] args) {
-        if (args.length != 5) {
+    public static void main(String[] args) throws IOException {
+        if (args.length != 6) {
             if (args.length == 1 && "header".equals(args[0])) {
                 printHeader();
                 return;
             } else {
-                throw new IllegalArgumentException("Arguments: <pyclone oxygen file> <pyclone chlorine file> " +
+                throw new IllegalArgumentException("Arguments: <mode> <pyclone oxygen file> <pyclone chlorine file> " +
                         "<nicad blocks file> <nicad functions file> <moss file link>");
             }
         }
 
         // Grab command-line arguments
-        String pyCloneOxygenFile = args[0];
-        String pyCloneChlorineFile = args[1];
-        String niCadBlocksFile = args[2];
-        String niCadFunctionsFile = args[3];
-        String mossUrl = args[4];
+        String mode = args[0];
+        String pyCloneOxygenFile = args[1];
+        String pyCloneChlorineFile = args[2];
+        String niCadBlocksFile = args[3];
+        String niCadFunctionsFile = args[4];
+        String mossFile = args[5];
 
         // Read the PyClone clones
         List<List<Clone>> pyCloneClones = new ArrayList<>();
         PyCloneCloneReader pyCloneCloneReader = new PyCloneCloneReader(new JSONParser());
-        try {
+        if (!mode.equals("double")) {
             pyCloneClones.add(pyCloneCloneReader.readClones(pyCloneOxygenFile));
-        } catch (IOException e) {
-            // We want empty percentages if it can't read
+        } else {
+            // Double mode does not currently support oxygen
             pyCloneClones.add(new ArrayList<>());
         }
-
-        try {
-            pyCloneClones.add(pyCloneCloneReader.readClones(pyCloneChlorineFile));
-        } catch (IOException e) {
-            // We want empty percentages if it can't read
-            pyCloneClones.add(new ArrayList<>());
-        }
+        pyCloneClones.add(pyCloneCloneReader.readClones(pyCloneChlorineFile));
 
         // Read benchmark tool clones
         List<List<Clone>> benchmarkClones = new ArrayList<>();
 
         // Read the NiCad clones
         NiCadCloneReader niCadCloneReader = new NiCadCloneReader();
-        try {
-            benchmarkClones.add(niCadCloneReader.readClones(niCadBlocksFile));
-        } catch (IOException e) {
-            benchmarkClones.add(new ArrayList<>());
-        }
-        try {
-            benchmarkClones.add(niCadCloneReader.readClones(niCadFunctionsFile));
-        } catch (IOException e) {
-            benchmarkClones.add(new ArrayList<>());
-        }
+        benchmarkClones.add(niCadCloneReader.readClones(niCadBlocksFile));
+        benchmarkClones.add(niCadCloneReader.readClones(niCadFunctionsFile));
 
         // Read the Moss clones
-        MossCloneReader mossCloneReader = new MossCloneReader(new WebClient());
-        try {
-            benchmarkClones.add(mossCloneReader.readClones(mossUrl));
-        } catch (IOException e) {
+        if (!mode.equals("double")) {
+            MossCloneReader mossCloneReader = new MossCloneReader(new WebClient());
+            benchmarkClones.add(mossCloneReader.readClones(mossFile));
+        } else {
+            // Double mode does not currently support moss
             benchmarkClones.add(new ArrayList<>());
         }
 

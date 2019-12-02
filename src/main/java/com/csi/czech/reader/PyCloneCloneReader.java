@@ -33,8 +33,15 @@ public class PyCloneCloneReader implements CloneReader {
     public List<Clone> readClones(String inputFilename) throws IOException {
         try {
             File file = new File(inputFilename);
-            JSONArray array = (JSONArray) this.jsonParser.parse(new FileReader(file));
 
+            // Check for empty array
+            Scanner s = new Scanner(file);
+            String t = s.next();
+            if (t.equals("[]")) {
+                return new ArrayList<>();
+            }
+
+            JSONArray array = (JSONArray) this.jsonParser.parse(new FileReader(file));
             List<Clone> clones = new ArrayList<>();
             for (Object o: array) {
                 JSONObject object = (JSONObject) o;

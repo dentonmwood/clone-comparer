@@ -7,9 +7,11 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
 import org.apache.commons.io.FilenameUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,8 +32,10 @@ public class MossCloneReader implements CloneReader {
     }
 
     @Override
-    public List<Clone> readClones(String fileUrl) throws IOException {
-        HtmlPage mossPage = this.client.getPage(fileUrl);
+    public List<Clone> readClones(String inputFilename) throws IOException {
+        Scanner s = new Scanner(new File(inputFilename));
+        String mossUrl = s.next();
+        HtmlPage mossPage = this.client.getPage(mossUrl);
         List<Clone> clones = new ArrayList<>();
 
         List<HtmlTableRow> cloneRows = mossPage.getByXPath("//tr");
