@@ -61,18 +61,18 @@ public class PyCloneCloneReader implements CloneReader {
     private List<Source> getOrigins(Set<String> originKeys, String value) throws IOException {
         List<Source> origins = new ArrayList<>();
         for (String originKey: originKeys) {
-            Pattern p = Pattern.compile("([^ ]*) \\(L: ([0-9]*) C: ([0-9]*)\\)");
+            Pattern p = Pattern.compile("([^ ]+) \\(([0-9]+), ([0-9]+)\\)");
             Matcher m = p.matcher(originKey);
             if (m.matches()) {
                 String filepath = m.group(1);
                 String filename = FilenameUtils.getName(filepath);
-                Long lineNumber = Long.parseLong(m.group(2));
-                Long columnNumber = Long.parseLong(m.group(3));
-                origins.add(new PyCloneSource(filename, lineNumber, columnNumber));
+                Long startLine = Long.parseLong(m.group(2));
+                Long endLine = Long.parseLong(m.group(3));
+                origins.add(new PyCloneSource(filename, startLine, endLine));
             } else {
+                throw new IOException("Invalid PyClone source");
                 // The clone identifies a function or module. Not much we can do here for now
-                // TODO: add lines to function node
-                origins.add(new PyCloneSource(originKey, 0L, 0L));
+                // origins.add(new PyCloneSource(originKey, 0L, 0L));
             }
         }
         return origins;

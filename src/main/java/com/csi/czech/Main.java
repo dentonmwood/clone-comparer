@@ -1,6 +1,8 @@
 package com.csi.czech;
 
 import com.csi.czech.clone.Clone;
+import com.csi.czech.cmd.CLIParser;
+import com.csi.czech.cmd.CloneOptions;
 import com.csi.czech.comparer.CloneComparer;
 import com.csi.czech.reader.MossCloneReader;
 import com.csi.czech.reader.NiCadCloneReader;
@@ -29,36 +31,31 @@ public class Main {
         }
 
         // Grab command-line arguments
-        String mode = args[0];
-        String pyCloneOxygenFile = args[1];
-        String pyCloneChlorineFile = args[2];
-        String niCadBlocksFile = args[3];
-        String niCadFunctionsFile = args[4];
-        String mossFile = args[5];
+        CloneOptions options = new CLIParser().parseArgs(args);
 
         // Read the PyClone clones
         List<List<Clone>> pyCloneClones = new ArrayList<>();
         PyCloneCloneReader pyCloneCloneReader = new PyCloneCloneReader(new JSONParser());
-        if (!mode.equals("double")) {
-            pyCloneClones.add(pyCloneCloneReader.readClones(pyCloneOxygenFile));
+        if (!options.isDualMode()) {
+            pyCloneClones.add(pyCloneCloneReader.readClones(options.getPycloneOxygenFile()));
         } else {
             // Double mode does not currently support oxygen
             pyCloneClones.add(new ArrayList<>());
         }
-        pyCloneClones.add(pyCloneCloneReader.readClones(pyCloneChlorineFile));
+        pyCloneClones.add(pyCloneCloneReader.readClones(options.getPycloneChlorineFile()));
 
         // Read benchmark tool clones
         List<List<Clone>> benchmarkClones = new ArrayList<>();
 
         // Read the NiCad clones
         NiCadCloneReader niCadCloneReader = new NiCadCloneReader();
-        benchmarkClones.add(niCadCloneReader.readClones(niCadBlocksFile));
-        benchmarkClones.add(niCadCloneReader.readClones(niCadFunctionsFile));
+        benchmarkClones.add(niCadCloneReader.readClones(options.getNicadBlocksFile()));
+        benchmarkClones.add(niCadCloneReader.readClones(options.getNicadFunctionsFile()));
 
         // Read the Moss clones
-        if (!mode.equals("double")) {
+        if (!options.isDualMode()) {
             MossCloneReader mossCloneReader = new MossCloneReader(new WebClient());
-            benchmarkClones.add(mossCloneReader.readClones(mossFile));
+            benchmarkClones.add(mossCloneReader.readClones(options.getMossFile()));
         } else {
             // Double mode does not currently support moss
             benchmarkClones.add(new ArrayList<>());

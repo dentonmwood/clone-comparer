@@ -37,7 +37,19 @@ public abstract class Source implements Comparable<Source> {
             return false;
         }
 
-        return Math.abs(source.getStartLine() - this.startLine) < EQUALITY_THRESHOLD;
+        // Check if clones are close to each other
+        if (Math.abs(source.getStartLine() - this.startLine) < EQUALITY_THRESHOLD &&
+                Math.abs(source.getEndLine() - this.endLine) < EQUALITY_THRESHOLD) {
+            return true;
+        }
+
+        // Check if clones are contained within one another
+        if ((source.getStartLine() < this.startLine && source.getEndLine() > this.endLine) ||
+                source.getStartLine() > this.startLine && source.getEndLine() < this.endLine) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override
@@ -56,5 +68,10 @@ public abstract class Source implements Comparable<Source> {
             return startLineCompare;
         }
         return this.endLine.compareTo(source.getEndLine());
+    }
+
+    @Override
+    public String toString() {
+        return "Source: " + this.filename + ": " + this.startLine + "-" + this.endLine;
     }
 }

@@ -20,7 +20,7 @@ public class CloneComparer {
         Map<Clone, Clone> cloneMap = new HashMap<>();
         for (Clone clone1: cloneList1) {
             for (Clone clone2: cloneList2) {
-                if (clone1.equals(clone2) && !cloneMap.containsValue(clone2)) {
+                if (clone1.equals(clone2)) {
                     cloneMap.put(clone1, clone2);
                 }
             }
