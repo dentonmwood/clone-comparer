@@ -15,6 +15,11 @@ import java.util.List;
     Taken from https://www.journaldev.com/1198/java-sax-parser-example
     https://ksah.in/introduction-to-web-scraping-with-java/
  */
+
+/**
+ * Reads NiCad clones. The clones are returned as an XML, so we
+ * use the Java SAX parser to process them.
+ */
 public class NiCadCloneReader implements CloneReader {
     @Override
     public List<Clone> readClones(String inputFilename) throws IOException {

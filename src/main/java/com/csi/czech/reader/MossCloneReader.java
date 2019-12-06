@@ -22,9 +22,20 @@ import java.util.regex.Pattern;
     https://www.roseindia.net/tutorials/xPath/using-nameXPath.shtml
     https://stackoverflow.com/questions/14526260/how-do-i-get-the-file-name-from-a-string-containing-the-absolute-file-path
  */
+
+/**
+ * Reads the clones from Moss. Moss does not give us a file locally,
+ * so the reader uses the HTMLUnit library to scrape the page on
+ * Stanford's servers. The given file contains the URL to read.
+ */
 public class MossCloneReader implements CloneReader {
+    /** The HTMLUnit client to scrape with */
     private WebClient client;
 
+    /**
+     * Constructor for the Moss clone reader
+     * @param webClient the HTMLUnit web client for use
+     */
     public MossCloneReader(WebClient webClient) {
         this.client = webClient;
         this.client.getOptions().setCssEnabled(false);
@@ -55,6 +66,13 @@ public class MossCloneReader implements CloneReader {
         return clones;
     }
 
+    /**
+     * Takes a web URL representing the Moss results on Stanford's servers.
+     * Scrapes the web page at the URL and returns the Moss clones to parse.
+     * @param url the URL of the results pages
+     * @return the clones detected by Moss
+     * @throws IOException if the page can't be scraped
+     */
     public List<Clone> getClonesFromPage(String url) throws IOException {
         HtmlPage clonePage = this.client.getPage(url);
 

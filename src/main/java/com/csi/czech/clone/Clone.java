@@ -5,21 +5,27 @@ import com.csi.czech.source.Source;
 import java.util.*;
 
 /**
- * Represents a detected clone for any tool
+ * Represents a generic detected clone. Consists of a number of sources
+ * (file and line numbers of the code snippet with the clone)
  */
 public abstract class Clone {
+    /** The references to the files containing the clones */
     protected Queue<Source> sources;
 
+    /**
+     * Constructor for the Clone class
+     */
     public Clone() {
         this.sources = new PriorityQueue<>();
     }
 
+    /**
+     * Adds a source to the queue
+     *
+     * @param source the source to add
+     */
     public void addSource(Source source) {
         this.sources.add(source);
-    }
-
-    public Queue<Source> getSources() {
-        return this.sources;
     }
 
     @Override

@@ -4,6 +4,9 @@ import org.apache.commons.cli.*;
 
 import java.io.IOException;
 
+/**
+ *
+ */
 public class CLIParser {
     private Options options;
     private CommandLineParser parser;
@@ -28,6 +31,11 @@ public class CLIParser {
     // Header options
     private static final String INCLUDE_ALGORITHM = "a";
 
+    /**
+     * Constructor for the CLI Parser class. Initializes
+     * the Commons-CLI parser with the correct command-line
+     * options.
+     */
     public CLIParser() {
         this.options = new Options();
         this.options.addOption(INCLUDE_ALGORITHM, true, "Specify algorithm to include in header (only used in header mode)");
@@ -42,6 +50,19 @@ public class CLIParser {
         this.parser = new DefaultParser();
     }
 
+    /**
+     * Parses the command-line arguments and returns the results. Results
+     * may be one of three classes:
+     * <ul>
+     *     <li>CloneHelpOptions - print the help dialog</li>
+     *     <li>CloneHeaderOptions - print the header</li>
+     *     <li>CloneFileOptions - handle the passed files and print the similarities</li>
+     * </ul>
+     *
+     * @param args the command-line arguments to parse
+     * @return an object representing the parsed arguments
+     * @throws IOException if the arguments can't be parsed
+     */
     public CloneOptions parseArgs(String[] args) throws IOException {
         try {
             CommandLine cmd = parser.parse(this.options, args);
@@ -70,6 +91,13 @@ public class CLIParser {
         }
     }
 
+    /**
+     * Processes CLI args and returns an object with the parsed files to be compared
+     *
+     * @param cmd the parsed arguments
+     * @param mode the mode of the results (single/double)
+     * @return the processed file arguments
+     */
     private CloneFileOptions receiveFiles(CommandLine cmd, CloneFileOptions.CloneMode mode) {
         boolean pyclone = false;
         boolean benchmark = false;
@@ -112,6 +140,12 @@ public class CLIParser {
         return cloneOptions;
     }
 
+    /**
+     * Processes the header arguments to print
+     *
+     * @param cmd the parsed CLI arguments
+     * @return the header options to print
+     */
     private CloneHeaderOptions receiveHeaderOptions(CommandLine cmd) {
         CloneHeaderOptions headerOptions = new CloneHeaderOptions();
         for (String arg: cmd.getArgs()) {

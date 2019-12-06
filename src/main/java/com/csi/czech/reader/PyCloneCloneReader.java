@@ -17,9 +17,18 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Reads the PyClone clones. We use Google's SimpleJSON library
+ * to parse the files and return the results.
+ */
 public class PyCloneCloneReader implements CloneReader {
+    /** The SimpleJSON parser to use */
     private JSONParser jsonParser;
 
+    /**
+     * Constructor for the reader
+     * @param jsonParser the SimpleJSON parser to use
+     */
     public PyCloneCloneReader(JSONParser jsonParser) {
         this.jsonParser = jsonParser;
     }
@@ -47,9 +56,9 @@ public class PyCloneCloneReader implements CloneReader {
                 JSONObject object = (JSONObject) o;
                 String value = (String) object.get("value");
                 Long matchWeight = (Long) object.get("match_weight");
-                JSONObject originObject = (JSONObject) object.get("origins");
+                JSONObject sourceObject = (JSONObject) object.get("origins");
 
-                List<Source> origins = this.getOrigins(originObject.keySet(), value);
+                List<Source> origins = this.getSources(sourceObject.keySet());
                 addClones(origins, clones, value, matchWeight);
             }
             return clones;
@@ -58,9 +67,15 @@ public class PyCloneCloneReader implements CloneReader {
         }
     }
 
-    private List<Source> getOrigins(Set<String> originKeys, String value) throws IOException {
+    /**
+     * Individual reader method which parses file sources and returns the results.
+     * @param sourceKeys the data for the sources
+     * @return the parsed sources
+     * @throws IOException if the sources can't be parsed
+     */
+    private List<Source> getSources(Set<String> sourceKeys) throws IOException {
         List<Source> origins = new ArrayList<>();
-        for (String originKey: originKeys) {
+        for (String originKey: sourceKeys) {
             Pattern p = Pattern.compile("([^ ]+) \\(([0-9]+), ([0-9]+)\\)");
             Matcher m = p.matcher(originKey);
             if (m.matches()) {
@@ -71,17 +86,25 @@ public class PyCloneCloneReader implements CloneReader {
                 origins.add(new PyCloneSource(filename, startLine, endLine));
             } else {
                 throw new IOException("Invalid PyClone source");
-                // The clone identifies a function or module. Not much we can do here for now
-                // origins.add(new PyCloneSource(originKey, 0L, 0L));
             }
         }
         return origins;
     }
 
-    private void addClones(List<Source> origins, List<Clone> clones, String value, Long matchWeight) {
+    /**
+     * Adds clones to the returned result. This is intensive because if PyClone detects three
+     * or more sources which are all clones of each other, it returns them as a cluster instead
+     * of individual pairings. This function breaks the cluster into pairs of 2 to make them
+     * easier to compare.
+     * @param sources the file sources to break up
+     * @param clones the list of clones (to add the clones to)
+     * @param value the Python AST class name of the clones
+     * @param matchWeight the weight of the similarity between the clones
+     */
+    private void addClones(List<Source> sources, List<Clone> clones, String value, Long matchWeight) {
         // For comparison to other tools, create a clone for each two origins
-        for (Source origin1: origins) {
-            for (Source origin2: origins) {
+        for (Source origin1: sources) {
+            for (Source origin2: sources) {
                 if (!origin1.equals(origin2)) {
                     // Implemented as a set to make sure no duplicates
                     Clone clone = new PyCloneClone(value, matchWeight);

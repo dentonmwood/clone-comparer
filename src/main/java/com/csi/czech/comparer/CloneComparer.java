@@ -6,7 +6,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Compares clones which have been parsed from the input files.
+ * Contains only the method to run the comparison.
+ */
 public class CloneComparer {
+    /**
+     * Takes two lists of parsed clones and compares them,
+     * returning a percentage of similarity (0 <= p <= 1)
+     * @param cloneList1 the first clone list to compare
+     * @param cloneList2 the second clone list to compare
+     * @return the percentage of similarity
+     */
     public double compareCloneLists(List<Clone> cloneList1, List<Clone> cloneList2) {
         if (cloneList1.size() == 0 || cloneList2.size() == 0) {
             if (cloneList1.size() == 0 && cloneList2.size() == 0) {

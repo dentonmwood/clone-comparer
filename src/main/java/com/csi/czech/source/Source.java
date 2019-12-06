@@ -2,27 +2,56 @@ package com.csi.czech.source;
 
 import java.util.Objects;
 
+/**
+ * Generic representation of a snippet of code within a file which is identified
+ * as a clone with some other snippet.
+ */
 public abstract class Source implements Comparable<Source> {
+    /** File where snippet was found */
     protected String filename;
+    /** Start line of snippet */
     protected Long startLine;
+    /** End line of snippet */
     protected Long endLine;
 
+    /**
+     * Wiggle factor for clone checking. Clones may not be exactly the same
+     * lines, and we want to check for that.
+     */
     private static final int EQUALITY_THRESHOLD = 3;
 
+    /**
+     * Constructor for the source class
+     * @param filename name of the file
+     * @param startLine starting line
+     * @param endLine ending line
+     */
     public Source(String filename, Long startLine, Long endLine) {
         this.filename = filename;
         this.startLine = startLine;
         this.endLine = endLine;
     }
 
+    /**
+     * Getter for the filename
+     * @return the filename
+     */
     public String getFilename() {
         return this.filename;
     }
 
+    /**
+     * Getter for the start line
+     * @return the start line
+     */
     public Long getStartLine() {
         return this.startLine;
     }
 
+    /**
+     * Getter for the end line
+     * @return the end line
+     */
     public Long getEndLine() {
         return this.endLine;
     }

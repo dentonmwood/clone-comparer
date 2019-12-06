@@ -12,9 +12,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handles arguments given to the command-line. This is an implementation of the
+ * Visitor pattern - each type of command-line options class calls its visit method,
+ * and the handler handles things accordingly.
+ */
 public class CLIHandler {
     /**
-     * Prints the header line for the results. Useful for telling what's what.
+     * Prints the header line for the results. This should be called in a separate run
+     * from file processing and only with the algorithms to run
+     *
+     * @param options which headers to print
      */
     public void visit(CloneHeaderOptions options) {
         StringBuilder header = new StringBuilder();
@@ -35,10 +43,21 @@ public class CLIHandler {
         System.out.println(header.toString());
     }
 
+    /**
+     * Prints the help statement
+     * @param options the options to print
+     */
     public void visit(CloneHelpOptions options) {
         options.getHelpFormatter().printHelp("clone-comparer", options.getOptions());
     }
 
+    /**
+     * Handles the actual processing of the clone files. Takes a series of files,
+     * reads the clones in those files, and attempts to process them.
+     *
+     * @param options the files to process
+     * @throws IOException if one or more of the files cannot be read
+     */
     public void visit(CloneFileOptions options) throws IOException {
         // Read the PyClone clones
         List<List<Clone>> pyCloneClones = new ArrayList<>();
@@ -102,6 +121,7 @@ public class CLIHandler {
             results.append(percentage).append(",");
         }
 
+        // Output the results
         System.out.println(results.toString());
     }
 }
