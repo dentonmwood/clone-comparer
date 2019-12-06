@@ -18,7 +18,7 @@ This tool will compare one set of files at a time. As such, it's used in a
 file output. Cloning that repository with the submodules will also grab this repo. 
 
 If you do want to use the tool individually, clone it and make sure you have Java and Maven installed. Run the JAR with
-the -h option to see the description of how to use it. There are two main modes:
+the -h option to see the description of how to use it. There are three main modes:
 - Header mode (-M h) - prints the header line for the CSV file. Specify the algorithms being used.
 - Single mode (-M s) - specify that the algorithms have been run in single-repository mode (i.e. a repo against itself)
 - Dual mode (-M d) - specify that the algorithms have been run in dual-repository mode (i.e. two repos against each other)
