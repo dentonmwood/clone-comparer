@@ -18,6 +18,8 @@ public class CLIHandler {
      */
     public void visit(CloneHeaderOptions options) {
         StringBuilder header = new StringBuilder();
+        // Leave space for when double algorithm runs
+        header.append(",");
         for (CloneHeaderOptions.PyCloneTool tool: options.getPyCloneTools()) {
             header.append("# of ").append(tool.toString()).append(" clones,");
         }
@@ -82,6 +84,10 @@ public class CLIHandler {
         }
 
         StringBuilder results = new StringBuilder();
+        if (options.getMode().equals(CloneFileOptions.CloneMode.SINGLE)) {
+            // Leave room for when double runs
+            results.append(",");
+        }
 
         // Print # of clones found by each tool
         for (List<Clone> pyCloneList: pyCloneClones) {
