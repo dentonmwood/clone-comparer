@@ -1,7 +1,7 @@
 # Overview
 
 This is a tool to compare the output of multiple clone detection tools to check the results against each other. It's
-implemented to get a benchmark of the [PyClone](https://github.com/iresbaylor/codeDuplicationParser) tool against
+implemented to get a benchmark of the [Cyclone](https://github.com/iresbaylor/codeDuplicationParser) tool against
 other tools. We use two tools for comparison:
 - [NiCad](https://www.txl.ca/txl-nicaddownload.html), a text-based parsing tool developed by Dr. James R. Cordy and Chanchal
 K. Roy. NiCad has had several papers written about it, but you can find the original [here](https://www.cs.usask.ca/~croy/papers/2011/CR-NiCad-Tool-ICPC11.pdf).
