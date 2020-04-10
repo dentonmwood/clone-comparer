@@ -58,7 +58,7 @@ public class PyCloneCloneReader implements CloneReader {
                 Long matchWeight = (Long) object.get("match_weight");
                 JSONObject sourceObject = (JSONObject) object.get("origins");
 
-                List<Source> origins = this.getSources(sourceObject.keySet());
+                List<Source> origins = this.getSources(sourceObject);
                 addClones(origins, clones, value, matchWeight);
             }
             return clones;
@@ -69,13 +69,14 @@ public class PyCloneCloneReader implements CloneReader {
 
     /**
      * Individual reader method which parses file sources and returns the results.
-     * @param sourceKeys the data for the sources
+     * @param sourceObject the data for the sources
      * @return the parsed sources
      * @throws IOException if the sources can't be parsed
      */
-    private List<Source> getSources(Set<String> sourceKeys) throws IOException {
+    private List<Source> getSources(JSONObject sourceObject) throws IOException {
         List<Source> origins = new ArrayList<>();
-        for (String originKey: sourceKeys) {
+        Set<String> keys = sourceObject.keySet();
+        for (String originKey: keys) {
             Pattern p = Pattern.compile("([^ ]+) \\(([0-9]+), ([0-9]+)\\)");
             Matcher m = p.matcher(originKey);
             if (m.matches()) {
@@ -83,7 +84,9 @@ public class PyCloneCloneReader implements CloneReader {
                 String filename = FilenameUtils.getName(filepath);
                 Long startLine = Long.parseLong(m.group(2));
                 Long endLine = Long.parseLong(m.group(3));
-                origins.add(new PyCloneSource(filename, startLine, endLine));
+                Double weight = (Double) sourceObject.get(originKey);
+                origins.add(new PyCloneSource(filename, startLine, endLine,
+                        weight));
             } else {
                 throw new IOException("Invalid PyClone source");
             }
