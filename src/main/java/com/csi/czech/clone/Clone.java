@@ -28,6 +28,15 @@ public abstract class Clone {
         this.sources.add(source);
     }
 
+    /**
+     * Gets the sources from the clone
+     *
+     * @return the queue of sources
+     */
+    public Queue<Source> getSources() {
+        return new PriorityQueue<>(this.sources);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
