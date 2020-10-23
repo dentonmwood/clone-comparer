@@ -1,5 +1,6 @@
 package com.csi.czech.clone;
 
+import com.csi.czech.source.PyCloneSource;
 import com.csi.czech.source.Source;
 
 /**
@@ -21,6 +22,33 @@ public class PyCloneClone extends Clone {
         super();
         this.value = value;
         this.matchWeight = matchWeight;
+    }
+
+    /**
+     * Returns the Python AST class of the clone
+     *
+     * @return the value
+     */
+    public String getValue() {
+        return this.value;
+    }
+
+    /**
+     * Returns the match weight of the clone
+     *
+     * @return the match weight
+     */
+    public Long getMatchWeight() {
+        return this.matchWeight;
+    }
+
+    @Override
+    public void addSource(Source source) {
+        if (!(source instanceof PyCloneSource)) {
+            throw new IllegalArgumentException("Only PyClone sources can be "
+                    + "attached to a PyClone clone");
+        }
+        super.addSource(source);
     }
 
     @Override

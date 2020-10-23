@@ -1,5 +1,6 @@
 package com.csi.czech.clone;
 
+import com.csi.czech.source.MossSource;
 import com.csi.czech.source.Source;
 
 /**
@@ -12,6 +13,15 @@ public class MossClone extends Clone {
      */
     public MossClone() {
         super();
+    }
+
+    @Override
+    public void addSource(Source source) {
+        if (!(source instanceof MossSource)) {
+            throw new IllegalArgumentException("Only Moss sources can be "
+                    + "attached to a Moss clone");
+        }
+        super.addSource(source);
     }
 
     @Override

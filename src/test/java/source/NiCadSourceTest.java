@@ -53,16 +53,21 @@ public class NiCadSourceTest extends SourceTest {
         }
 
         @TestFactory
-        public Stream<DynamicTest> testInvalidendLine() {
+        public Stream<DynamicTest> testInvalidEndLine() {
             return getInvalidLineNumbers().map(endLine -> dynamicTest("end "
-                    + "line = " + endLine, () -> new NiCadSource("filename",
-                    0L, endLine, 0L)));
+                    + "line = " + endLine, () -> {
+                assertThrows(IllegalArgumentException.class,
+                        () -> new NiCadSource(
+                        "filename", 0L, endLine, 0L));
+            }));
         }
 
         @TestFactory
         public Stream<DynamicTest> testInvalidPcIds() {
             return getInvalidPcIds().map(pcId -> dynamicTest("pcId = " + pcId,
-                    () -> new NiCadSource("filename", 0L, 0L, pcId)));
+                    () -> assertThrows(IllegalArgumentException.class,
+                            () -> new NiCadSource("filename", 0L, 0L,
+                    pcId))));
         }
     }
 
@@ -80,22 +85,6 @@ public class NiCadSourceTest extends SourceTest {
                     endLine, pcId);
             assertEquals(source1, source2);
             assertEquals(source1.hashCode(), source2.hashCode());
-        })))));
-    }
-
-    @TestFactory
-    public Stream<DynamicTest> testToString() {
-        return getValidFilenames().flatMap(filename
-                -> getValidLineNumbers().flatMap(startLine
-                -> getValidLineNumbers().flatMap(endLine
-                -> getValidPcIds().map(pcId -> dynamicTest("filename = "
-                + filename + ", start line = " + startLine + ", end line "
-                + "= " + endLine + ", pcId = " + pcId, () -> {
-            NiCadSource source = new NiCadSource(filename, startLine,
-                    endLine, pcId);
-            assertEquals("NiCadSource{filename='" + filename + '\'' +
-                    ", startLine=" + startLine + ", endLine=" + endLine + ", "
-                            + "pcId=" + pcId + '}', source.toString());
         })))));
     }
 }

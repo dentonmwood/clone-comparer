@@ -1,5 +1,6 @@
 package com.csi.czech.clone;
 
+import com.csi.czech.source.NiCadSource;
 import com.csi.czech.source.Source;
 
 /**
@@ -21,6 +22,15 @@ public class NiCadClone extends Clone {
         super();
         this.numLines = numLines;
         this.similarity = similarity;
+    }
+
+    @Override
+    public void addSource(Source source) {
+        if (!(source instanceof NiCadSource)) {
+            throw new IllegalArgumentException("Only NiCad sources can be "
+                    + "attached to a NiCad clone");
+        }
+        super.addSource(source);
     }
 
     @Override

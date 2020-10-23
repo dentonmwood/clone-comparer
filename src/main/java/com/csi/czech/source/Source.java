@@ -27,6 +27,16 @@ public abstract class Source implements Comparable<Source> {
      * @param endLine ending line
      */
     public Source(String filename, Long startLine, Long endLine) {
+        if (filename == null) {
+            throw new NullPointerException("filename cannot be null");
+        }
+        if (startLine <= 0) {
+            throw new IllegalArgumentException("Start line must be at least 1");
+        }
+        if (endLine <= 0) {
+            throw new IllegalArgumentException("End line must be at least 1");
+        }
+
         this.filename = filename;
         this.startLine = startLine;
         this.endLine = endLine;
@@ -58,8 +68,13 @@ public abstract class Source implements Comparable<Source> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null) return false;
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null) {
+            return false;
+        }
         Source source = (Source) o;
 
         if (!source.getFilename().equals(this.filename)) {
@@ -67,8 +82,8 @@ public abstract class Source implements Comparable<Source> {
         }
 
         // Check if clones are close to each other
-        if (Math.abs(source.getStartLine() - this.startLine) < EQUALITY_THRESHOLD &&
-                Math.abs(source.getEndLine() - this.endLine) < EQUALITY_THRESHOLD) {
+        if (Math.abs(source.getStartLine() - this.startLine) <= EQUALITY_THRESHOLD &&
+                Math.abs(source.getEndLine() - this.endLine) <= EQUALITY_THRESHOLD) {
             return true;
         }
 

@@ -70,20 +70,4 @@ public class MossSourceTest extends SourceTest {
                     assertEquals(source1.hashCode(), source2.hashCode());
                 }))));
     }
-
-    @TestFactory
-    public Stream<DynamicTest> testToString() {
-        return getValidFilenames().flatMap(filename
-                -> getValidLineNumbers().flatMap(startLine
-                -> getValidLineNumbers().map(endLine
-                -> dynamicTest("filename = " + filename +
-                        ", start line = " + startLine + ", end line = " + endLine,
-                () -> {
-                    MossSource source = new MossSource(filename,
-                            startLine, endLine);
-                    assertEquals("MossSource{filename='" + filename
-                            + '\'' + ", startLine=" + startLine + ", endLine="
-                            + endLine + '}', source.toString());
-                }))));
-    }
 }

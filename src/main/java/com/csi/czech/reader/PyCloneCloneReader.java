@@ -1,3 +1,9 @@
+/* Sources used:
+    https://stackoverflow.com/questions/10926353/how-to-read-json-file-into-java-with-simple-json-library
+    https://stackoverflow.com/questions/9151619/how-to-iterate-over-a-jsonobject
+    https://stackoverflow.com/questions/29454663/using-java-regex-read-a-text-file-to-match-multiple-patterns
+ */
+
 package com.csi.czech.reader;
 
 import com.csi.czech.clone.Clone;
@@ -10,12 +16,11 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 /**
  * Reads the PyClone clones. We use Google's SimpleJSON library
@@ -33,26 +38,21 @@ public class PyCloneCloneReader implements CloneReader {
         this.jsonParser = jsonParser;
     }
 
-    /* Sources used:
-        https://stackoverflow.com/questions/10926353/how-to-read-json-file-into-java-with-simple-json-library
-        https://stackoverflow.com/questions/9151619/how-to-iterate-over-a-jsonobject
-        https://stackoverflow.com/questions/29454663/using-java-regex-read-a-text-file-to-match-multiple-patterns
-     */
-    @Override
-    public List<Clone> readClones(String inputFilename) throws IOException {
+    public String extractFromFile(String inputFilename)
+            throws IOException {
+        File file = new File(inputFilename);
+        BufferedReader jsonReader = new BufferedReader(new FileReader(file));
+        Stream<String> lines = jsonReader.lines();
+        StringBuilder builder = new StringBuilder();
+        lines.map(line -> builder.append(line));
+        return builder.toString();
+    }
+
+    public List<Clone> processJson(String json) throws IOException {
         try {
-            File file = new File(inputFilename);
-
-            // Check for empty array
-            Scanner s = new Scanner(file);
-            String t = s.next();
-            if (t.equals("[]")) {
-                return new ArrayList<>();
-            }
-
-            JSONArray array = (JSONArray) this.jsonParser.parse(new FileReader(file));
+            JSONArray array = (JSONArray) this.jsonParser.parse(json);
             List<Clone> clones = new ArrayList<>();
-            for (Object o: array) {
+            for (Object o : array) {
                 JSONObject object = (JSONObject) o;
                 String value = (String) object.get("value");
                 Long matchWeight = (Long) object.get("match_weight");
@@ -65,6 +65,17 @@ public class PyCloneCloneReader implements CloneReader {
         } catch (ParseException e) {
             throw new IOException("Unable to parse JSON file: " + e.getMessage());
         }
+    }
+
+    @Override
+    public List<Clone> readClones(String inputFilename) throws IOException {
+        // Check for empty array
+        Scanner s = new Scanner(new File(inputFilename));
+        String t = s.next();
+        if (t.equals("[]")) {
+            return new ArrayList<>();
+        }
+        return processJson(extractFromFile(inputFilename));
     }
 
     /**
