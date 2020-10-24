@@ -24,6 +24,17 @@ public class MossClone extends Clone {
         super.addSource(source);
     }
 
+    // Don't want to take tool-specific parameters into account
+    @Override
+    public boolean equals(Object o1) {
+        return super.equals(o1);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();

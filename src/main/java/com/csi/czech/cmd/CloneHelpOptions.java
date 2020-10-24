@@ -9,9 +9,9 @@ import org.apache.commons.cli.Options;
  */
 public class CloneHelpOptions implements CloneOptions {
     /** The CLI settings for the application */
-    private Options options;
+    private final Options options;
     /** Formatter for the help dialog */
-    private HelpFormatter helpFormatter;
+    private final HelpFormatter helpFormatter;
 
     /**
      * Constructor for the help options

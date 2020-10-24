@@ -19,8 +19,8 @@ public class CloneComparer {
      * @return the percentage of similarity
      */
     public double compareCloneLists(List<Clone> cloneList1, List<Clone> cloneList2) {
-        if (cloneList1.size() == 0 || cloneList2.size() == 0) {
-            if (cloneList1.size() == 0 && cloneList2.size() == 0) {
+        if (cloneList1.isEmpty() || cloneList2.isEmpty()) {
+            if (cloneList1.isEmpty() && cloneList2.isEmpty()) {
                 // They caught the same clones, technically
                 return 1.0;
             }

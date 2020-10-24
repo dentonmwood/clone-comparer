@@ -20,7 +20,6 @@ import java.io.*;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 /**
  * Reads the PyClone clones. We use Google's SimpleJSON library
@@ -28,7 +27,7 @@ import java.util.stream.Stream;
  */
 public class PyCloneCloneReader implements CloneReader {
     /** The SimpleJSON parser to use */
-    private JSONParser jsonParser;
+    private final JSONParser jsonParser;
 
     /**
      * Constructor for the reader
@@ -41,11 +40,12 @@ public class PyCloneCloneReader implements CloneReader {
     public String extractFromFile(String inputFilename)
             throws IOException {
         File file = new File(inputFilename);
-        BufferedReader jsonReader = new BufferedReader(new FileReader(file));
-        Stream<String> lines = jsonReader.lines();
-        StringBuilder builder = new StringBuilder();
-        lines.map(line -> builder.append(line));
-        return builder.toString();
+        try (BufferedReader jsonReader = new BufferedReader(
+                new FileReader(file))) {
+            StringBuilder builder = new StringBuilder();
+            jsonReader.lines().forEach(builder::append);
+            return builder.toString();
+        }
     }
 
     public List<Clone> processJson(String json) throws IOException {
@@ -70,12 +70,13 @@ public class PyCloneCloneReader implements CloneReader {
     @Override
     public List<Clone> readClones(String inputFilename) throws IOException {
         // Check for empty array
-        Scanner s = new Scanner(new File(inputFilename));
-        String t = s.next();
-        if (t.equals("[]")) {
-            return new ArrayList<>();
+        try (Scanner s = new Scanner(new File(inputFilename))) {
+            String t = s.next();
+            if (t.equals("[]")) {
+                return new ArrayList<>();
+            }
+            return processJson(extractFromFile(inputFilename));
         }
-        return processJson(extractFromFile(inputFilename));
     }
 
     /**
@@ -84,9 +85,10 @@ public class PyCloneCloneReader implements CloneReader {
      * @return the parsed sources
      * @throws IOException if the sources can't be parsed
      */
-    private List<Source> getSources(JSONObject sourceObject) throws IOException {
+    private List<Source> getSources(JSONObject sourceObject)
+            throws IOException {
         List<Source> origins = new ArrayList<>();
-        Set<String> keys = sourceObject.keySet();
+        Set<String> keys = new HashSet<>(sourceObject.keySet());
         for (String originKey: keys) {
             Pattern p = Pattern.compile("([^ ]+) \\(([0-9]+), ([0-9]+)\\)");
             Matcher m = p.matcher(originKey);
@@ -117,13 +119,14 @@ public class PyCloneCloneReader implements CloneReader {
      */
     private void addClones(List<Source> sources, List<Clone> clones, String value, Long matchWeight) {
         // For comparison to other tools, create a clone for each two origins
-        for (Source origin1: sources) {
-            for (Source origin2: sources) {
-                if (!origin1.equals(origin2)) {
-                    // Implemented as a set to make sure no duplicates
+        for (int i = 0; i < sources.size(); i++) {
+            for (int j = i + 1; j < sources.size(); j++) {
+                Source source1 = sources.get(i);
+                Source source2 = sources.get(j);
+                if (!source1.equals(source2)) {
                     Clone clone = new PyCloneClone(value, matchWeight);
-                    clone.addSource(origin1);
-                    clone.addSource(origin2);
+                    clone.addSource(source1);
+                    clone.addSource(source2);
 
                     if (!clones.contains(clone)) {
                         clones.add(clone);

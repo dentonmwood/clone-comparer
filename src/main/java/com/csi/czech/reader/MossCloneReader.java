@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
  */
 public class MossCloneReader implements CloneReader {
     /** The HTMLUnit client to scrape with */
-    private WebClient client;
+    private final WebClient client;
 
     /**
      * Constructor for the Moss clone reader
@@ -44,26 +44,27 @@ public class MossCloneReader implements CloneReader {
 
     @Override
     public List<Clone> readClones(String inputFilename) throws IOException {
-        Scanner s = new Scanner(new File(inputFilename));
-        String mossUrl = s.next();
-        HtmlPage mossPage = this.client.getPage(mossUrl);
-        List<Clone> clones = new ArrayList<>();
+        try (Scanner s = new Scanner(new File(inputFilename))) {
+            String mossUrl = s.next();
+            HtmlPage mossPage = this.client.getPage(mossUrl);
+            List<Clone> clones = new ArrayList<>();
 
-        List<HtmlTableRow> cloneRows = mossPage.getByXPath("//tr");
-        List<String> urls = new ArrayList<>();
-        for (HtmlTableRow tableRow: cloneRows) {
-            List<HtmlTableDataCell> tableData = tableRow.getByXPath("td");
-            // Header row will not have any data cells
-            if (tableData.size() != 0) {
-                HtmlAnchor anchor = tableData.get(0).getFirstByXPath("a");
-                urls.add(anchor.getHrefAttribute());
+            List<HtmlTableRow> cloneRows = mossPage.getByXPath("//tr");
+            List<String> urls = new ArrayList<>();
+            for (HtmlTableRow tableRow : cloneRows) {
+                List<HtmlTableDataCell> tableData = tableRow.getByXPath("td");
+                // Header row will not have any data cells
+                if (!tableData.isEmpty()) {
+                    HtmlAnchor anchor = tableData.get(0).getFirstByXPath("a");
+                    urls.add(anchor.getHrefAttribute());
+                }
             }
-        }
 
-        for (String url: urls) {
-            clones.addAll(getClonesFromPage(url));
+            for (String url : urls) {
+                clones.addAll(getClonesFromPage(url));
+            }
+            return clones;
         }
-        return clones;
     }
 
     /**
@@ -80,7 +81,7 @@ public class MossCloneReader implements CloneReader {
         HtmlPage cloneTablePage = (HtmlPage) cloneFrame.getEnclosedPage();
 
         List<String> filenames = new ArrayList<>(2);
-        List<Integer> percentMatches = new ArrayList<>(2);
+        List<Double> percentMatches = new ArrayList<>(2);
         List<Clone> clones = new ArrayList<>();
 
         // Get clone info from header row
@@ -92,7 +93,7 @@ public class MossCloneReader implements CloneReader {
             if (m.matches()) {
                 String filename = FilenameUtils.getName(m.group(1));
                 filenames.add(filename);
-                percentMatches.add(Integer.parseInt(m.group(2)));
+                percentMatches.add(Double.parseDouble(m.group(2)) / 100.0);
             }
         }
 
@@ -100,7 +101,7 @@ public class MossCloneReader implements CloneReader {
         for (HtmlTableRow tableRow: cloneTableRows) {
             List<HtmlTableDataCell> tableData = tableRow.getByXPath("td");
             // Header row will not have any data cells
-            if (tableData.size() > 0) {
+            if (!tableData.isEmpty()) {
                 Clone clone = new MossClone();
                 int i = 0;
                 // Get the file sources
@@ -113,7 +114,8 @@ public class MossCloneReader implements CloneReader {
                     if (m.matches()) {
                         Long startLine = Long.parseLong(m.group(1));
                         Long endLine = Long.parseLong(m.group(2));
-                        clone.addSource(new MossSource(filenames.get(i), startLine, endLine));
+                        clone.addSource(new MossSource(filenames.get(i),
+                                startLine, endLine, percentMatches.get(i)));
                         i++;
                     }
                 }

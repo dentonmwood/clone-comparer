@@ -18,6 +18,12 @@ public class PyCloneSource extends Source {
         return weight;
     }
 
+    // Don't want to take tool-specific parameters into account
+    @Override
+    public boolean equals(Object o1) {
+        return super.equals(o1);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), getWeight());

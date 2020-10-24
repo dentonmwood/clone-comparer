@@ -9,6 +9,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import org.json.simple.parser.JSONParser;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,13 @@ import java.util.List;
  * and the handler handles things accordingly.
  */
 public class CLIHandler {
+
+    private final PrintStream sysOut;
+
+    public CLIHandler(PrintStream sysOut) {
+        this.sysOut = sysOut;
+    }
+
     /**
      * Prints the header line for the results. This should be called in a separate run
      * from file processing and only with the algorithms to run
@@ -36,11 +44,11 @@ public class CLIHandler {
         }
         for (CloneHeaderOptions.PyCloneTool pyCloneTool: options.getPyCloneTools()) {
             for (CloneHeaderOptions.BenchmarkTool benchmarkTool: options.getBenchmarkTools()) {
-                header.append("# of ").append(pyCloneTool).append(" in ").append(benchmarkTool).append(",");
-                header.append("# of ").append(benchmarkTool).append(" in ").append(pyCloneTool).append(",");
+                header.append("% of ").append(pyCloneTool).append(" in ").append(benchmarkTool).append(",");
+                header.append("% of ").append(benchmarkTool).append(" in ").append(pyCloneTool).append(",");
             }
         }
-        System.out.println(header.toString());
+        sysOut.println(header.toString());
     }
 
     /**
@@ -122,6 +130,6 @@ public class CLIHandler {
         }
 
         // Output the results
-        System.out.println(results.toString());
+        sysOut.println(results.toString());
     }
 }

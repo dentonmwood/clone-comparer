@@ -8,9 +8,9 @@ import com.csi.czech.source.Source;
  */
 public class PyCloneClone extends Clone {
     /** Represents the Python AST classification of the code snippet */
-    private String value;
+    private final String value;
     /** Number representing the similarity between the two code snippets */
-    private Long matchWeight;
+    private final Long matchWeight;
 
     /**
      * Constructor for the PyClone clone class
@@ -49,6 +49,17 @@ public class PyCloneClone extends Clone {
                     + "attached to a PyClone clone");
         }
         super.addSource(source);
+    }
+
+    // Don't want to take tool-specific parameters into account
+    @Override
+    public boolean equals(Object o1) {
+        return super.equals(o1);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
     @Override

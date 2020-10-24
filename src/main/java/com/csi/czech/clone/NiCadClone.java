@@ -8,9 +8,9 @@ import com.csi.czech.source.Source;
  */
 public class NiCadClone extends Clone {
     /** Percentage of similarity between the sources */
-    private Long similarity;
+    private final Long similarity;
     /** Number of lines which are similar */
-    private Long numLines;
+    private final Long numLines;
 
     /**
      * Constructor for the NiCad clone class
@@ -31,6 +31,17 @@ public class NiCadClone extends Clone {
                     + "attached to a NiCad clone");
         }
         super.addSource(source);
+    }
+
+    // Don't want to take tool-specific parameters into account
+    @Override
+    public boolean equals(Object o1) {
+        return super.equals(o1);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
     @Override

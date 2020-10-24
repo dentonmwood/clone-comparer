@@ -19,6 +19,17 @@ public class NiCadSource extends Source {
         this.pcId = pcId;
     }
 
+    // Don't want to take tool-specific parameters into account
+    @Override
+    public boolean equals(Object o1) {
+        return super.equals(o1);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
     @Override
     public String toString() {
         return "Source: " + this.filename + ": " + this.startLine + "-" + this.endLine + ", ID=" + this.pcId;

@@ -8,8 +8,8 @@ import java.io.IOException;
  *
  */
 public class CLIParser {
-    private Options options;
-    private CommandLineParser parser;
+    private final Options options;
+    private final CommandLineParser parser;
 
     // Get help
     private static final String HELP = "h";
@@ -73,16 +73,15 @@ public class CLIParser {
 
             if (cmd.hasOption(MODE)) {
                 String mode = cmd.getOptionValue(MODE);
-                switch (mode) {
-                    case SINGLE_MODE:
-                        return receiveFiles(cmd, CloneFileOptions.CloneMode.SINGLE);
-                    case DOUBLE_MODE:
-                        return receiveFiles(cmd, CloneFileOptions.CloneMode.DOUBLE);
-                    case HEADER_MODE:
-                        return receiveHeaderOptions(cmd);
-                    default:
-                        throw new IllegalArgumentException("Unexpected value: " + mode);
-                }
+                return switch (mode) {
+                    case SINGLE_MODE -> receiveFiles(cmd,
+                            CloneFileOptions.CloneMode.SINGLE);
+                    case DOUBLE_MODE -> receiveFiles(cmd,
+                            CloneFileOptions.CloneMode.DOUBLE);
+                    case HEADER_MODE -> receiveHeaderOptions(cmd);
+                    default -> throw new IllegalArgumentException(
+                            "Unexpected value: " + mode);
+                };
             } else {
                 throw new IOException("Mode is required");
             }
@@ -150,26 +149,14 @@ public class CLIParser {
         CloneHeaderOptions headerOptions = new CloneHeaderOptions();
         for (String arg: cmd.getArgs()) {
             switch (arg) {
-                case PYCLONE_OXYGEN:
-                    headerOptions.setPycloneOxygen(true);
-                    break;
-                case PYCLONE_CHLORINE:
-                    headerOptions.setPycloneChlorine(true);
-                    break;
-                case PYCLONE_IODINE:
-                    headerOptions.setPycloneIodine(true);
-                    break;
-                case NICAD_BLOCKS:
-                    headerOptions.setNicadBlocks(true);
-                    break;
-                case NICAD_FUNCTIONS:
-                    headerOptions.setNicadFunctions(true);
-                    break;
-                case MOSS:
-                    headerOptions.setMoss(true);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unexpected header option: " + arg);
+                case PYCLONE_OXYGEN -> headerOptions.setPycloneOxygen(true);
+                case PYCLONE_CHLORINE -> headerOptions.setPycloneChlorine(true);
+                case PYCLONE_IODINE -> headerOptions.setPycloneIodine(true);
+                case NICAD_BLOCKS -> headerOptions.setNicadBlocks(true);
+                case NICAD_FUNCTIONS -> headerOptions.setNicadFunctions(true);
+                case MOSS -> headerOptions.setMoss(true);
+                default -> throw new IllegalArgumentException(
+                        "Unexpected header option: " + arg);
             }
         }
         return headerOptions;

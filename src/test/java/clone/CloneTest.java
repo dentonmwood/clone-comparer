@@ -26,12 +26,13 @@ public class CloneTest {
             @BeforeEach
             public void init() {
                 mossClone = new MossClone();
-                mossClone.addSource(new MossSource("file.txt", 15L, 20L));
-                mossClone.addSource(new MossSource("file2.txt", 33L, 45L));
+                mossClone.addSource(new MossSource("file.txt", 15L, 20L, 0.44));
+                mossClone.addSource(new MossSource("file2.txt", 33L, 45L,
+                        0.78));
 
                 pycloneClone = new PyCloneClone("module", 2L);
-                pycloneClone.addSource(new PyCloneSource("file.txt", 15L, 20L, 2.0));
-                pycloneClone.addSource(new PyCloneSource("file2.txt", 33L, 45L, 1.0));
+                pycloneClone.addSource(new PyCloneSource("file.txt", 15L, 20L, 0.2));
+                pycloneClone.addSource(new PyCloneSource("file2.txt", 33L, 45L, 0.1));
 
                 nicadClone = new NiCadClone(33L, 2L);
                 nicadClone.addSource(new NiCadSource("file.txt", 15L, 20L, 2L));
@@ -66,18 +67,22 @@ public class CloneTest {
             @BeforeEach
             public void init() {
                 mossOuterClone = new MossClone();
-                mossOuterClone.addSource(new MossSource("b.b", 200L, 300L));
-                mossOuterClone.addSource(new MossSource("a.a", 100L, 200L));
+                mossOuterClone.addSource(new MossSource("b.b", 200L, 300L,
+                        0.22));
+                mossOuterClone.addSource(new MossSource("a.a", 100L, 200L,
+                        0.79));
 
                 mossInnerClone = new MossClone();
-                mossInnerClone.addSource(new MossSource("a.a", 150L, 155L));
-                mossInnerClone.addSource(new MossSource("b.b", 250L, 255L));
+                mossInnerClone.addSource(new MossSource("a.a", 150L, 155L,
+                        0.98));
+                mossInnerClone.addSource(new MossSource("b.b", 250L, 255L,
+                        0.99));
 
                 pycloneOuterClone = new PyCloneClone("file", 23L);
                 pycloneOuterClone.addSource(new PyCloneSource("b.b", 200L,
-                        300L, 2.0));
+                        300L, 0.2));
                 pycloneOuterClone.addSource(new PyCloneSource("a.a", 100L,
-                        200L, 2.0));
+                        200L, 0.2));
 
                 pycloneInnerClone = new PyCloneClone("file", 2L);
                 pycloneInnerClone.addSource(new PyCloneSource("a.a", 155L,
@@ -138,12 +143,13 @@ public class CloneTest {
             @BeforeEach
             public void init() {
                 mossClone = new MossClone();
-                mossClone.addSource(new MossSource("file.txt", 15L, 20L));
-                mossClone.addSource(new MossSource("file2.txt", 33L, 45L));
+                mossClone.addSource(new MossSource("file.txt", 15L, 20L, 0.42));
+                mossClone.addSource(new MossSource("file2.txt", 33L, 45L,
+                        0.99));
 
                 pycloneClone = new PyCloneClone("module", 2L);
                 pycloneClone.addSource(new PyCloneSource("file.txt", 12L, 17L
-                        , 2.0));
+                        , 0.2));
                 pycloneClone.addSource(new PyCloneSource("file2.txt", 30L,
                         42L, 1.0));
 
@@ -178,8 +184,9 @@ public class CloneTest {
             @BeforeEach
             public void init() {
                 mossClone = new MossClone();
-                mossClone.addSource(new MossSource("file.txt", 15L, 20L));
-                mossClone.addSource(new MossSource("file2.txt", 33L, 45L));
+                mossClone.addSource(new MossSource("file.txt", 15L, 20L, 0.89));
+                mossClone.addSource(new MossSource("file2.txt", 33L, 45L,
+                        0.87));
 
                 pycloneClone = new PyCloneClone("module", 2L);
                 pycloneClone.addSource(new PyCloneSource("file.txt", 15L,
@@ -211,8 +218,9 @@ public class CloneTest {
             @Test
             public void testNotSameFirstStartLine() {
                 mossClone = new MossClone();
-                mossClone.addSource(new MossSource("file.txt", 20L, 20L));
-                mossClone.addSource(new MossSource("file2.txt", 33L, 45L));
+                mossClone.addSource(new MossSource("file.txt", 20L, 20L, 0.95));
+                mossClone.addSource(new MossSource("file2.txt", 33L, 45L,
+                        0.96));
                 assertNotEquals(nicadClone, mossClone);
             }
 
@@ -229,8 +237,10 @@ public class CloneTest {
             @Test
             public void testNotSameFirstEndLine() {
                 mossClone = new MossClone();
-                mossClone.addSource(new MossSource("file.txt", 15L, 33L));
-                mossClone.addSource(new MossSource("file2.txt", 33L, 45L));
+                mossClone.addSource(new MossSource("file.txt", 15L, 33L,
+                        0.97));
+                mossClone.addSource(new MossSource("file2.txt", 33L, 45L,
+                        0.99));
                 assertNotEquals(pycloneClone, mossClone);
             }
 
