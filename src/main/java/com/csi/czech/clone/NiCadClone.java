@@ -24,6 +24,24 @@ public class NiCadClone extends Clone {
         this.similarity = similarity;
     }
 
+    /**
+     * Returns the similarity of the clone
+     *
+     * @return the similarity
+     */
+    public Long getSimilarity() {
+        return similarity;
+    }
+
+    /**
+     * Returns the number of lines which the clone encompasses
+     *
+     * @return the number of lines
+     */
+    public Long getNumLines() {
+        return numLines;
+    }
+
     @Override
     public void addSource(Source source) {
         if (!(source instanceof NiCadSource)) {

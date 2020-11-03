@@ -19,6 +19,15 @@ public class NiCadSource extends Source {
         this.pcId = pcId;
     }
 
+    /**
+     * Returns the PC ID of the source
+     *
+     * @return the PC ID
+     */
+    public Long getPcId() {
+        return pcId;
+    }
+
     // Don't want to take tool-specific parameters into account
     @Override
     public boolean equals(Object o1) {

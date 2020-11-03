@@ -2,10 +2,10 @@ package com.csi.czech.reader;
 
 import com.csi.czech.clone.NiCadClone;
 import com.csi.czech.source.NiCadSource;
-import org.apache.commons.io.FilenameUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +44,9 @@ public class NiCadCloneHandler extends DefaultHandler {
             this.clone = new NiCadClone(numLines, similarity);
         } else if (qName.equalsIgnoreCase("source")) {
             String filePath = attributes.getValue("file");
-            String filename = FilenameUtils.getName(filePath).replaceAll(".pyindent", "");
+            Path path = Path.of(filePath);
+            String filename = path.subpath(4, path.getNameCount()).toString()
+                    .replaceAll(".pyindent", "");
             Long startLine = Long.parseLong(attributes.getValue("startline"));
             Long endLine = Long.parseLong(attributes.getValue("endline"));
             Long pcId = Long.parseLong(attributes.getValue("pcid"));

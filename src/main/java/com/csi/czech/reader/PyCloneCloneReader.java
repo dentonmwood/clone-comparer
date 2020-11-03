@@ -63,7 +63,7 @@ public class PyCloneCloneReader implements CloneReader {
             }
             return clones;
         } catch (ParseException e) {
-            throw new IOException("Unable to parse JSON file: " + e.getMessage());
+            throw new IOException(e);
         }
     }
 
@@ -93,8 +93,7 @@ public class PyCloneCloneReader implements CloneReader {
             Pattern p = Pattern.compile("([^ ]+) \\(([0-9]+), ([0-9]+)\\)");
             Matcher m = p.matcher(originKey);
             if (m.matches()) {
-                String filepath = m.group(1);
-                String filename = FilenameUtils.getName(filepath);
+                String filename = m.group(1);
                 Long startLine = Long.parseLong(m.group(2));
                 Long endLine = Long.parseLong(m.group(3));
                 Double weight = (Double) sourceObject.get(originKey);
@@ -123,15 +122,11 @@ public class PyCloneCloneReader implements CloneReader {
             for (int j = i + 1; j < sources.size(); j++) {
                 Source source1 = sources.get(i);
                 Source source2 = sources.get(j);
-                if (!source1.equals(source2)) {
-                    Clone clone = new PyCloneClone(value, matchWeight);
-                    clone.addSource(source1);
-                    clone.addSource(source2);
+                Clone clone = new PyCloneClone(value, matchWeight);
+                clone.addSource(source1);
+                clone.addSource(source2);
 
-                    if (!clones.contains(clone)) {
-                        clones.add(clone);
-                    }
-                }
+                clones.add(clone);
             }
         }
     }
