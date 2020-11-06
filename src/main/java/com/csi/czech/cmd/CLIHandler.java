@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Handles arguments given to the command-line. This is an implementation of the
@@ -21,9 +23,11 @@ import java.util.List;
 public class CLIHandler {
 
     private final PrintStream sysOut;
+    private final Logger logger;
 
     public CLIHandler(PrintStream sysOut) {
         this.sysOut = sysOut;
+        this.logger = Logger.getLogger(this.getClass().toString());
     }
 
     /**
@@ -71,13 +75,31 @@ public class CLIHandler {
         List<List<Clone>> pyCloneClones = new ArrayList<>();
         PyCloneCloneReader pyCloneCloneReader = new PyCloneCloneReader(new JSONParser());
         if (options.getPycloneOxygenFile() != null) {
-            pyCloneClones.add(pyCloneCloneReader.readClones(options.getPycloneOxygenFile()));
+            try {
+                pyCloneClones.add(pyCloneCloneReader.readClones(options.getPycloneOxygenFile()));
+            } catch (IOException e) {
+                pyCloneClones.add(new ArrayList<>());
+                logger.log(Level.WARNING,
+                        "Could not process Oxygen: " + e.toString());
+            }
         }
         if (options.getPycloneChlorineFile() != null) {
-            pyCloneClones.add(pyCloneCloneReader.readClones(options.getPycloneChlorineFile()));
+            try {
+                pyCloneClones.add(pyCloneCloneReader.readClones(options.getPycloneChlorineFile()));
+            } catch (IOException e) {
+                pyCloneClones.add(new ArrayList<>());
+                logger.log(Level.WARNING,
+                        "Could not process Chlorine: " + e.toString());
+            }
         }
         if (options.getPycloneIodineFile() != null) {
-            pyCloneClones.add(pyCloneCloneReader.readClones(options.getPycloneIodineFile()));
+            try {
+                pyCloneClones.add(pyCloneCloneReader.readClones(options.getPycloneIodineFile()));
+            } catch (IOException e) {
+                pyCloneClones.add(new ArrayList<>());
+                logger.log(Level.WARNING,
+                        "Could not process Iodine: " + e.toString());
+            }
         }
 
 
@@ -87,16 +109,34 @@ public class CLIHandler {
         // Read the NiCad clones
         NiCadCloneReader niCadCloneReader = new NiCadCloneReader();
         if (options.getNicadBlocksFile() != null) {
-            benchmarkClones.add(niCadCloneReader.readClones(options.getNicadBlocksFile()));
+            try {
+                benchmarkClones.add(niCadCloneReader.readClones(options.getNicadBlocksFile()));
+            } catch (IOException e) {
+                benchmarkClones.add(new ArrayList<>());
+                logger.log(Level.WARNING,
+                        "Could not process NiCad Blocks: " + e.toString());
+            }
         }
         if (options.getNicadFunctionsFile() != null) {
-            benchmarkClones.add(niCadCloneReader.readClones(options.getNicadFunctionsFile()));
+            try {
+                benchmarkClones.add(niCadCloneReader.readClones(options.getNicadFunctionsFile()));
+            } catch (IOException e) {
+                benchmarkClones.add(new ArrayList<>());
+                logger.log(Level.WARNING,
+                        "Could not process NiCad Functions: " + e.toString());
+            }
         }
 
         // Read the Moss clones
         if (options.getMossFile() != null) {
             MossCloneReader mossCloneReader = new MossCloneReader(new WebClient());
-            benchmarkClones.add(mossCloneReader.readClones(options.getMossFile()));
+            try {
+                benchmarkClones.add(mossCloneReader.readClones(options.getMossFile()));
+            } catch (IOException e) {
+                pyCloneClones.add(new ArrayList<>());
+                logger.log(Level.WARNING,
+                        "Could not process Moss: " + e.toString());
+            }
         }
 
         // Compare the clones
