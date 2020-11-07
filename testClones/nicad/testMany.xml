@@ -1,0 +1,26 @@
+<clones>
+<systeminfo processor="nicad6" system="flask" granularity="functions-blind" threshold="30%" minlines="10" maxlines="2500"/>
+<cloneinfo npcs="235" npairs="4"/>
+<runinfo ncompares="515" cputime="21548"/>
+
+<clone nlines="18" similarity="73">
+<source file="../../repos/flask/tests/test_signals.py.pyindent" startline="15" endline="35" pcid="174"></source>
+<source file="../../repos/flask/tests/test_signals.py.pyindent" startline="36" endline="60" pcid="177"></source>
+</clone>
+
+<clone nlines="16" similarity="88">
+<source file="../../repos/flask/tests/test_templating.py.pyindent" startline="61" endline="80" pcid="31"></source>
+<source file="../../repos/flask/tests/test_templating.py.pyindent" startline="81" endline="102" pcid="33"></source>
+</clone>
+
+<clone nlines="15" similarity="73">
+<source file="../../repos/flask/tests/test_appctx.py.pyindent" startline="89" endline="110" pcid="120"></source>
+<source file="../../repos/flask/tests/test_appctx.py.pyindent" startline="111" endline="131" pcid="124"></source>
+</clone>
+
+<clone nlines="12" similarity="83">
+<source file="../../repos/flask/tests/test_appctx.py.pyindent" startline="55" endline="72" pcid="116"></source>
+<source file="../../repos/flask/tests/test_appctx.py.pyindent" startline="73" endline="88" pcid="118"></source>
+</clone>
+
+</clones>

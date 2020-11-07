@@ -1,0 +1,26 @@
+<clones>
+<systeminfo processor="nicad6" system="nvdlib" granularity="functions-blind" threshold="30%" minlines="10" maxlines="2500"/>
+<cloneinfo npcs="25" npairs="4"/>
+<runinfo ncompares="98" cputime="16783"/>
+
+<clone nlines="14" similarity="100">
+<source file="../../repos/nvdlib/tests/test_model.py.pyindent" startline="41" endline="62" pcid="5"></source>
+<source file="../../repos/nvdlib/tests/test_model.py.pyindent" startline="63" endline="85" pcid="6"></source>
+</clone>
+
+<clone nlines="13" similarity="78">
+<source file="../../repos/nvdlib/tests/test_model.py.pyindent" startline="21" endline="40" pcid="4"></source>
+<source file="../../repos/nvdlib/tests/test_model.py.pyindent" startline="63" endline="85" pcid="6"></source>
+</clone>
+
+<clone nlines="13" similarity="78">
+<source file="../../repos/nvdlib/tests/test_model.py.pyindent" startline="21" endline="40" pcid="4"></source>
+<source file="../../repos/nvdlib/tests/test_model.py.pyindent" startline="41" endline="62" pcid="5"></source>
+</clone>
+
+<clone nlines="12" similarity="75">
+<source file="../../repos/nvdlib/tests/test_model.py.pyindent" startline="89" endline="115" pcid="7"></source>
+<source file="../../repos/nvdlib/tests/test_model.py.pyindent" startline="119" endline="144" pcid="8"></source>
+</clone>
+
+</clones>

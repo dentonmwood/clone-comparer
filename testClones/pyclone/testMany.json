@@ -1,0 +1,385 @@
+[
+  {
+    "value": "If",
+    "match_weight": 48,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (83, 84)": 1.411764705882353,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (87, 89)": 1.411764705882353,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (85, 86)": 1.411764705882353
+    }
+  },
+  {
+    "value": "Assign",
+    "match_weight": 26,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (84, 84)": 1.3,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (86, 86)": 1.3,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (88, 89)": 1.3
+    }
+  },
+  {
+    "value": "Call",
+    "match_weight": 25,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (84, 84)": 1.3888888888888888,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (86, 86)": 1.3888888888888888,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (88, 89)": 1.3888888888888888
+    }
+  },
+  {
+    "value": "Subscript",
+    "match_weight": 24,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (84, 84)": 1.5,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (86, 86)": 1.5,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (88, 89)": 1.5
+    }
+  },
+  {
+    "value": "Module",
+    "match_weight": 23,
+    "origins": {
+      "src/server/__init__.py (1, 6)": 1.4375,
+      "src/models/similarity_with_frequent_patterns/scoring/__init__.py (1, 6)": 1.4375
+    }
+  },
+  {
+    "value": "Call",
+    "match_weight": 23,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (84, 84)": 1.7692307692307692,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (86, 86)": 1.7692307692307692,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (88, 89)": 1.7692307692307692
+    }
+  },
+  {
+    "value": "Assign",
+    "match_weight": 22,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (38, 38)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (73, 73)": 2.0
+    }
+  },
+  {
+    "value": "Attribute",
+    "match_weight": 22,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (84, 84)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (88, 89)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (86, 86)": 2.0
+    }
+  },
+  {
+    "value": "Compare",
+    "match_weight": 21,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (83, 83)": 1.6153846153846154,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (87, 87)": 1.6153846153846154,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (85, 85)": 1.6153846153846154
+    }
+  },
+  {
+    "value": "FunctionDef",
+    "match_weight": 20,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/entities/entities.py (70, 72)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/entities/entities.py (146, 148)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/entities/entities.py (112, 114)": 2.0
+    }
+  },
+  {
+    "value": "Subscript",
+    "match_weight": 20,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (83, 83)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (87, 87)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (86, 86)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (85, 85)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (84, 84)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (88, 88)": 2.0
+    }
+  },
+  {
+    "value": "Assign",
+    "match_weight": 19,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (38, 38)": 1.7272727272727273,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (21, 21)": 1.7272727272727273,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (73, 73)": 1.7272727272727273
+    }
+  },
+  {
+    "value": "Assign",
+    "match_weight": 18,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/similarity/relativesimilarity.py (96, 96)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/similarity/relativesimilarity.py (115, 115)": 2.0
+    }
+  },
+  {
+    "value": "Call",
+    "match_weight": 18,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (73, 73)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (38, 38)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (21, 21)": 2.0
+    }
+  },
+  {
+    "value": "Assign",
+    "match_weight": 16,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/similarity/relativesimilarity.py (102, 103)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/similarity/relativesimilarity.py (125, 126)": 2.0
+    }
+  },
+  {
+    "value": "Return",
+    "match_weight": 14,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/entities/entities.py (114, 114)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/entities/entities.py (148, 148)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/entities/entities.py (72, 72)": 2.0
+    }
+  },
+  {
+    "value": "Call",
+    "match_weight": 14,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/similarity/relativesimilarity.py (96, 96)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/similarity/relativesimilarity.py (115, 115)": 2.0
+    }
+  },
+  {
+    "value": "Subscript",
+    "match_weight": 14,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (34, 34)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (29, 29)": 2.0
+    }
+  },
+  {
+    "value": "Call",
+    "match_weight": 14,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (85, 85)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (87, 87)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (84, 84)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (88, 88)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (83, 83)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (86, 86)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (76, 76)": 2.0
+    }
+  },
+  {
+    "value": "Expr",
+    "match_weight": 12,
+    "origins": {
+      "src/server/ghazab_app.py (16, 16)": 2.0,
+      "src/server/__init__.py (6, 6)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/__init__.py (6, 6)": 2.0
+    }
+  },
+  {
+    "value": "FunctionDef",
+    "match_weight": 12,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/entities/entities.py (142, 144)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/entities/entities.py (10, 12)": 2.0
+    }
+  },
+  {
+    "value": "Assign",
+    "match_weight": 12,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (21, 21)": 1.0909090909090908,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (38, 38)": 1.0909090909090908,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (73, 73)": 1.0909090909090908,
+      "src/models/similarity_with_frequent_patterns/training/gen_ref_stacks.py (70, 70)": 1.0909090909090908
+    }
+  },
+  {
+    "value": "Assign",
+    "match_weight": 12,
+    "origins": {
+      "src/deployment/spark_aws/submit_training_job.py (115, 115)": 1.2,
+      "src/deployment/spark_aws/submit_training_job.py (116, 116)": 1.2
+    }
+  },
+  {
+    "value": "Call",
+    "match_weight": 12,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/entities/entities.py (114, 114)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/entities/entities.py (148, 148)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/entities/entities.py (72, 72)": 2.0
+    }
+  },
+  {
+    "value": "Assign",
+    "match_weight": 11,
+    "origins": {
+      "src/deployment/spark_aws/submit_training_job.py (23, 23)": 1.5714285714285714,
+      "src/deployment/spark_aws/submit_training_job.py (30, 30)": 1.5714285714285714
+    }
+  },
+  {
+    "value": "Assign",
+    "match_weight": 11,
+    "origins": {
+      "src/deployment/spark_aws/submit_training_job.py (122, 122)": 1.5714285714285714,
+      "src/models/similarity_with_frequent_patterns/training/gen_ref_stacks.py (189, 189)": 1.5714285714285714
+    }
+  },
+  {
+    "value": "Call",
+    "match_weight": 11,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/training/gen_ref_stacks.py (70, 70)": 1.2222222222222223,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (73, 73)": 1.2222222222222223,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (38, 38)": 1.2222222222222223,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (21, 21)": 1.2222222222222223
+    }
+  },
+  {
+    "value": "BinOp",
+    "match_weight": 11,
+    "origins": {
+      "src/deployment/spark_aws/submit_training_job.py (115, 115)": 1.375,
+      "src/deployment/spark_aws/submit_training_job.py (116, 116)": 1.375
+    }
+  },
+  {
+    "value": "Assign",
+    "match_weight": 10,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/__init__.py (5, 5)": 2.0,
+      "src/server/ghazab_app.py (15, 15)": 2.0,
+      "src/server/__init__.py (5, 5)": 2.0
+    }
+  },
+  {
+    "value": "Call",
+    "match_weight": 10,
+    "origins": {
+      "src/server/ghazab_app.py (16, 16)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/__init__.py (6, 6)": 2.0,
+      "src/server/__init__.py (6, 6)": 2.0
+    }
+  },
+  {
+    "value": "Assign",
+    "match_weight": 10,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (22, 22)": 2.0,
+      "src/models/similarity_with_frequent_patterns/training/gen_ref_stacks.py (76, 76)": 2.0
+    }
+  },
+  {
+    "value": "Expr",
+    "match_weight": 10,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/training/gen_ref_stacks.py (158, 158)": 2.0,
+      "src/models/similarity_with_frequent_patterns/training/gen_ref_stacks.py (163, 163)": 2.0
+    }
+  },
+  {
+    "value": "BinOp",
+    "match_weight": 10,
+    "origins": {
+      "src/deployment/spark_aws/submit_training_job.py (23, 23)": 2.0,
+      "src/deployment/spark_aws/submit_training_job.py (30, 30)": 2.0
+    }
+  },
+  {
+    "value": "Expr",
+    "match_weight": 10,
+    "origins": {
+      "src/deployment/spark_aws/submit_training_job.py (120, 120)": 2.0,
+      "src/models/similarity_with_frequent_patterns/training/gen_ref_stacks.py (187, 187)": 2.0
+    }
+  },
+  {
+    "value": "Subscript",
+    "match_weight": 10,
+    "origins": {
+      "src/deployment/spark_aws/submit_training_job.py (122, 122)": 2.0,
+      "src/models/similarity_with_frequent_patterns/training/gen_ref_stacks.py (189, 189)": 2.0
+    }
+  },
+  {
+    "value": "Assign",
+    "match_weight": 10,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/similarity/semvercomp.py (18, 18)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/similarity/semvercomp.py (33, 33)": 2.0
+    }
+  },
+  {
+    "value": "keyword",
+    "match_weight": 10,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/training/gen_ref_stacks.py (70, 70)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (73, 73)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (38, 38)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (21, 21)": 2.0
+    }
+  },
+  {
+    "value": "Subscript",
+    "match_weight": 10,
+    "origins": {
+      "src/deployment/spark_aws/submit_training_job.py (115, 115)": 2.0,
+      "src/deployment/spark_aws/submit_training_job.py (116, 116)": 2.0
+    }
+  },
+  {
+    "value": "Call",
+    "match_weight": 10,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/similarity/relativesimilarity.py (96, 96)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/similarity/relativesimilarity.py (115, 115)": 2.0
+    }
+  },
+  {
+    "value": "Assign",
+    "match_weight": 10,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/similarity/semvercomp.py (47, 47)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/similarity/semvercomp.py (50, 50)": 2.0
+    }
+  },
+  {
+    "value": "Expr",
+    "match_weight": 10,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/similarity/semvercomp.py (58, 58)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/similarity/semvercomp.py (62, 62)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/similarity/semvercomp.py (48, 48)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/similarity/semvercomp.py (51, 51)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/similarity/semvercomp.py (65, 65)": 2.0
+    }
+  },
+  {
+    "value": "Attribute",
+    "match_weight": 10,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (83, 83)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (76, 76)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (87, 87)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (86, 86)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (84, 84)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (85, 85)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/db.py (88, 88)": 2.0
+    }
+  },
+  {
+    "value": "Assign",
+    "match_weight": 10,
+    "origins": {
+      "src/models/similarity_with_frequent_patterns/scoring/similarity/semvercomp.py (57, 57)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/similarity/semvercomp.py (61, 61)": 2.0,
+      "src/models/similarity_with_frequent_patterns/scoring/similarity/semvercomp.py (64, 64)": 2.0
+    }
+  }
+]

@@ -10,7 +10,9 @@ import org.json.simple.parser.JSONParser;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,6 +25,8 @@ public class CLIHandler {
 
     private final PrintStream sysOut;
     private final Logger logger;
+
+    private static final Double ERROR = -1.0;
 
     public CLIHandler(PrintStream sysOut) {
         this.sysOut = sysOut;
@@ -72,12 +76,15 @@ public class CLIHandler {
     public void visit(CloneFileOptions options) {
         // Read the PyClone clones
         List<List<Clone>> pyCloneClones = new ArrayList<>();
+        List<Boolean> pyCloneErrors = new ArrayList<>();
         PyCloneCloneReader pyCloneCloneReader = new PyCloneCloneReader(new JSONParser());
         if (options.getPycloneOxygenFile() != null) {
             try {
                 pyCloneClones.add(pyCloneCloneReader.readClones(options.getPycloneOxygenFile()));
+                pyCloneErrors.add(false);
             } catch (Exception e) {
                 pyCloneClones.add(new ArrayList<>());
+                pyCloneErrors.add(true);
                 logger.log(Level.WARNING,
                         "Could not process Oxygen: " + e.toString());
             }
@@ -85,8 +92,10 @@ public class CLIHandler {
         if (options.getPycloneChlorineFile() != null) {
             try {
                 pyCloneClones.add(pyCloneCloneReader.readClones(options.getPycloneChlorineFile()));
+                pyCloneErrors.add(false);
             } catch (Exception e) {
                 pyCloneClones.add(new ArrayList<>());
+                pyCloneErrors.add(true);
                 logger.log(Level.WARNING,
                         "Could not process Chlorine: " + e.toString());
             }
@@ -94,8 +103,10 @@ public class CLIHandler {
         if (options.getPycloneIodineFile() != null) {
             try {
                 pyCloneClones.add(pyCloneCloneReader.readClones(options.getPycloneIodineFile()));
+                pyCloneErrors.add(false);
             } catch (Exception e) {
                 pyCloneClones.add(new ArrayList<>());
+                pyCloneErrors.add(true);
                 logger.log(Level.WARNING,
                         "Could not process Iodine: " + e.toString());
             }
@@ -104,12 +115,14 @@ public class CLIHandler {
 
         // Read benchmark tool clones
         List<List<Clone>> benchmarkClones = new ArrayList<>();
+        List<Boolean> benchmarkErrors = new ArrayList<>();
 
         // Read the NiCad clones
         NiCadCloneReader niCadCloneReader = new NiCadCloneReader();
         if (options.getNicadBlocksFile() != null) {
             try {
                 benchmarkClones.add(niCadCloneReader.readClones(options.getNicadBlocksFile()));
+                benchmarkErrors.add(false);
             } catch (Exception e) {
                 benchmarkClones.add(new ArrayList<>());
                 logger.log(Level.WARNING,
@@ -119,8 +132,10 @@ public class CLIHandler {
         if (options.getNicadFunctionsFile() != null) {
             try {
                 benchmarkClones.add(niCadCloneReader.readClones(options.getNicadFunctionsFile()));
+                benchmarkErrors.add(false);
             } catch (Exception e) {
                 benchmarkClones.add(new ArrayList<>());
+                benchmarkErrors.add(true);
                 logger.log(Level.WARNING,
                         "Could not process NiCad Functions: " + e.toString());
             }
@@ -131,8 +146,10 @@ public class CLIHandler {
             MossCloneReader mossCloneReader = new MossCloneReader(new WebClient());
             try {
                 benchmarkClones.add(mossCloneReader.readClones(options.getMossFile()));
+                benchmarkErrors.add(false);
             } catch (Exception e) {
-                pyCloneClones.add(new ArrayList<>());
+                benchmarkClones.add(new ArrayList<>());
+                benchmarkErrors.add(true);
                 logger.log(Level.WARNING,
                         "Could not process Moss: " + e.toString());
             }
@@ -141,11 +158,20 @@ public class CLIHandler {
         // Compare the clones
         CloneComparer comparer = new CloneComparer();
         List<Double> percentages = new ArrayList<>();
-        for (List<Clone> pyCloneList: pyCloneClones) {
-            for (List<Clone> benchmarkList: benchmarkClones) {
-                // Compare both ways
-                percentages.add(comparer.compareCloneLists(pyCloneList, benchmarkList));
-                percentages.add(comparer.compareCloneLists(benchmarkList, pyCloneList));
+        for (int i = 0; i < pyCloneClones.size(); i++) {
+            List<Clone> pyCloneList = pyCloneClones.get(i);
+            for (int j = 0; j < benchmarkClones.size(); j++) {
+                List<Clone> benchmarkList = benchmarkClones.get(j);
+                if (pyCloneErrors.get(i) || benchmarkErrors.get(j)) {
+                    percentages.add(ERROR);
+                    percentages.add(ERROR);
+                } else {
+                    // Compare both ways
+                    percentages.add(comparer.compareCloneLists(pyCloneList,
+                            benchmarkList));
+                    percentages.add(comparer.compareCloneLists(benchmarkList,
+                            pyCloneList));
+                }
             }
         }
 
@@ -156,16 +182,31 @@ public class CLIHandler {
         }
 
         // Print # of clones found by each tool
-        for (List<Clone> pyCloneList: pyCloneClones) {
-            results.append(pyCloneList.size()).append(",");
+        for (int i = 0; i < pyCloneClones.size(); i++) {
+            if (!pyCloneErrors.get(i)) {
+                results.append(pyCloneClones.get(i).size());
+            } else {
+                results.append("ERROR");
+            }
+            results.append(",");
         }
-        for (List<Clone> benchmarkList: benchmarkClones) {
-            results.append(benchmarkList.size()).append(",");
+        for (int j = 0; j < benchmarkClones.size(); j++) {
+            if (!benchmarkErrors.get(j)) {
+                results.append(benchmarkClones.get(j).size());
+            } else {
+                results.append("ERROR");
+            }
+            results.append(",");
         }
 
         // Print % of similarity between tools
         for (Double percentage: percentages) {
-            results.append(percentage).append(",");
+            if (!percentage.equals(ERROR)) {
+                results.append(percentage);
+            } else {
+                results.append("N/A");
+            }
+            results.append(",");
         }
 
         // Output the results

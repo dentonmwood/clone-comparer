@@ -1,0 +1,11 @@
+<clones>
+    <systeminfo processor="nicad5" system="fabric8-analytics-recommender" granularity="blocks-blind" threshold="30%" minlines="10" maxlines="2500"/>
+    <cloneinfo npcs="140" npairs="1"/>
+    <runinfo ncompares="451" cputime="23461"/>
+
+    <clone nlines="10" similarity="100">
+        <source file="../../repos/fabric8-analytics-recommender/src/models/similarity_with_frequent_patterns/scoring/similarity/relativesimilarity.py.pyindent" startline="58" endline="64" pcid="28"></source>
+        <source file="../../repos/fabric8-analytics-recommender/src/models/similarity_with_frequent_patterns/scoring/similarity/relativesimilarity.py.pyindent" startline="66" endline="72" pcid="30"></source>
+    </clone>
+
+</clones>

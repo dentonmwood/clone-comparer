@@ -3,6 +3,4 @@
 **/*.iml
 
 # Output
-**/*.json
-**/*.xml
 **/target
