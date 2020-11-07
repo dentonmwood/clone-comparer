@@ -8,7 +8,6 @@ import com.csi.czech.reader.PyCloneCloneReader;
 import com.gargoylesoftware.htmlunit.WebClient;
 import org.json.simple.parser.JSONParser;
 
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,16 +67,16 @@ public class CLIHandler {
      * reads the clones in those files, and attempts to process them.
      *
      * @param options the files to process
-     * @throws IOException if one or more of the files cannot be read
+     * @throws Exception if one or more of the files cannot be read
      */
-    public void visit(CloneFileOptions options) throws IOException {
+    public void visit(CloneFileOptions options) {
         // Read the PyClone clones
         List<List<Clone>> pyCloneClones = new ArrayList<>();
         PyCloneCloneReader pyCloneCloneReader = new PyCloneCloneReader(new JSONParser());
         if (options.getPycloneOxygenFile() != null) {
             try {
                 pyCloneClones.add(pyCloneCloneReader.readClones(options.getPycloneOxygenFile()));
-            } catch (IOException e) {
+            } catch (Exception e) {
                 pyCloneClones.add(new ArrayList<>());
                 logger.log(Level.WARNING,
                         "Could not process Oxygen: " + e.toString());
@@ -86,7 +85,7 @@ public class CLIHandler {
         if (options.getPycloneChlorineFile() != null) {
             try {
                 pyCloneClones.add(pyCloneCloneReader.readClones(options.getPycloneChlorineFile()));
-            } catch (IOException e) {
+            } catch (Exception e) {
                 pyCloneClones.add(new ArrayList<>());
                 logger.log(Level.WARNING,
                         "Could not process Chlorine: " + e.toString());
@@ -95,7 +94,7 @@ public class CLIHandler {
         if (options.getPycloneIodineFile() != null) {
             try {
                 pyCloneClones.add(pyCloneCloneReader.readClones(options.getPycloneIodineFile()));
-            } catch (IOException e) {
+            } catch (Exception e) {
                 pyCloneClones.add(new ArrayList<>());
                 logger.log(Level.WARNING,
                         "Could not process Iodine: " + e.toString());
@@ -111,7 +110,7 @@ public class CLIHandler {
         if (options.getNicadBlocksFile() != null) {
             try {
                 benchmarkClones.add(niCadCloneReader.readClones(options.getNicadBlocksFile()));
-            } catch (IOException e) {
+            } catch (Exception e) {
                 benchmarkClones.add(new ArrayList<>());
                 logger.log(Level.WARNING,
                         "Could not process NiCad Blocks: " + e.toString());
@@ -120,7 +119,7 @@ public class CLIHandler {
         if (options.getNicadFunctionsFile() != null) {
             try {
                 benchmarkClones.add(niCadCloneReader.readClones(options.getNicadFunctionsFile()));
-            } catch (IOException e) {
+            } catch (Exception e) {
                 benchmarkClones.add(new ArrayList<>());
                 logger.log(Level.WARNING,
                         "Could not process NiCad Functions: " + e.toString());
@@ -132,7 +131,7 @@ public class CLIHandler {
             MossCloneReader mossCloneReader = new MossCloneReader(new WebClient());
             try {
                 benchmarkClones.add(mossCloneReader.readClones(options.getMossFile()));
-            } catch (IOException e) {
+            } catch (Exception e) {
                 pyCloneClones.add(new ArrayList<>());
                 logger.log(Level.WARNING,
                         "Could not process Moss: " + e.toString());
