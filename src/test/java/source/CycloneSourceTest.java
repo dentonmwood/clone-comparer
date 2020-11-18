@@ -1,6 +1,6 @@
 package source;
 
-import com.csi.czech.source.PyCloneSource;
+import com.csi.czech.source.CycloneSource;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
-public class PyCloneSourceTest extends SourceTest {
+public class CycloneSourceTest extends SourceTest {
     public Stream<Double> getValidWeights() {
         return Stream.of(0.0, 1.0, 34.2354, Double.MAX_VALUE);
     }
@@ -31,7 +31,7 @@ public class PyCloneSourceTest extends SourceTest {
                     -> getValidWeights().map(weight
                     -> dynamicTest("filename = " + filename
                     + ", startline = " + startLine + ", endline = " + endLine, () -> {
-                        PyCloneSource source = new PyCloneSource(filename, startLine, endLine, weight);
+                        CycloneSource source = new CycloneSource(filename, startLine, endLine, weight);
                         assertEquals(filename, source.getFilename());
                         assertEquals(startLine, source.getStartLine());
                         assertEquals(endLine, source.getEndLine());
@@ -41,7 +41,7 @@ public class PyCloneSourceTest extends SourceTest {
         @Test
         public void testNullFilename() {
             assertThrows(NullPointerException.class,
-                    () -> new PyCloneSource(null, 0L, 0L, 0.0));
+                    () -> new CycloneSource(null, 0L, 0L, 0.0));
         }
 
         @TestFactory
@@ -49,21 +49,21 @@ public class PyCloneSourceTest extends SourceTest {
             return getInvalidLineNumbers().map(startLine
                     -> dynamicTest("startLine = " + startLine, () -> {
                 assertThrows(IllegalArgumentException.class,
-                        () -> new PyCloneSource("filename", startLine, 0L, 0.0));
+                        () -> new CycloneSource("filename", startLine, 0L, 0.0));
             }));
         }
 
         @TestFactory
         public Stream<DynamicTest> testInvalidEndLine() {
             return getInvalidLineNumbers().map(endLine -> dynamicTest("endLine = " + endLine, () -> {
-                assertThrows(IllegalArgumentException.class, () -> new PyCloneSource("filename", 0L, endLine, 0.0));
+                assertThrows(IllegalArgumentException.class, () -> new CycloneSource("filename", 0L, endLine, 0.0));
             }));
         }
 
         @TestFactory
         public Stream<DynamicTest> testInvalidWeight() {
             return getInvalidWeights().map(weight -> dynamicTest("weight = " + weight, () -> {
-                assertThrows(IllegalArgumentException.class, () -> new PyCloneSource("filename", 0L, 0L, weight));
+                assertThrows(IllegalArgumentException.class, () -> new CycloneSource("filename", 0L, 0L, weight));
             }));
         }
     }
@@ -76,8 +76,8 @@ public class PyCloneSourceTest extends SourceTest {
                 -> getValidWeights().map(weight
                 -> dynamicTest("filename = " + filename
                 + ", startline = " + startLine + ", endline = " + endLine, () -> {
-            PyCloneSource source1 = new PyCloneSource(filename, startLine, endLine, weight);
-            PyCloneSource source2 = new PyCloneSource(filename, startLine, endLine, weight);
+            CycloneSource source1 = new CycloneSource(filename, startLine, endLine, weight);
+            CycloneSource source2 = new CycloneSource(filename, startLine, endLine, weight);
             assertEquals(source1, source2);
             assertEquals(source1.hashCode(), source2.hashCode());
         })))));
@@ -91,8 +91,8 @@ public class PyCloneSourceTest extends SourceTest {
                 -> getValidWeights().map(weight
                 -> dynamicTest("filename = " + filename
                 + ", startline = " + startLine + ", endline = " + endLine, () -> {
-            PyCloneSource source = new PyCloneSource(filename, startLine, endLine, weight);
-            assertEquals("PyCloneSource{weight=" + weight + ", filename='" + filename + '\'' +
+            CycloneSource source = new CycloneSource(filename, startLine, endLine, weight);
+            assertEquals("CycloneSource{weight=" + weight + ", filename='" + filename + '\'' +
                     ", startLine=" + startLine + ", endLine=" + endLine + '}', source.toString());
         })))));
     }

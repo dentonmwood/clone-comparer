@@ -3,10 +3,10 @@ package clone;
 import com.csi.czech.clone.Clone;
 import com.csi.czech.clone.MossClone;
 import com.csi.czech.clone.NiCadClone;
-import com.csi.czech.clone.PyCloneClone;
+import com.csi.czech.clone.CycloneClone;
 import com.csi.czech.source.MossSource;
 import com.csi.czech.source.NiCadSource;
-import com.csi.czech.source.PyCloneSource;
+import com.csi.czech.source.CycloneSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ public class CloneTest {
         @Nested
         public class EqualsExactDifferentClassTest {
             private Clone mossClone;
-            private Clone pycloneClone;
+            private Clone cycloneClone;
             private Clone nicadClone;
 
             @BeforeEach
@@ -30,9 +30,9 @@ public class CloneTest {
                 mossClone.addSource(new MossSource("file2.txt", 33L, 45L,
                         0.78));
 
-                pycloneClone = new PyCloneClone("module", 2L);
-                pycloneClone.addSource(new PyCloneSource("file.txt", 15L, 20L, 0.2));
-                pycloneClone.addSource(new PyCloneSource("file2.txt", 33L, 45L, 0.1));
+                cycloneClone = new CycloneClone("module", 2L);
+                cycloneClone.addSource(new CycloneSource("file.txt", 15L, 20L, 0.2));
+                cycloneClone.addSource(new CycloneSource("file2.txt", 33L, 45L, 0.1));
 
                 nicadClone = new NiCadClone(33L, 2L);
                 nicadClone.addSource(new NiCadSource("file.txt", 15L, 20L, 2L));
@@ -45,13 +45,13 @@ public class CloneTest {
             }
 
             @Test
-            public void testMossPyclone() {
-                assertEquals(mossClone, pycloneClone);
+            public void testMossCyclone() {
+                assertEquals(mossClone, cycloneClone);
             }
 
             @Test
-            public void testNicadPyclone() {
-                assertEquals(nicadClone, pycloneClone);
+            public void testNicadCyclone() {
+                assertEquals(nicadClone, cycloneClone);
             }
         }
 
@@ -59,8 +59,8 @@ public class CloneTest {
         public class NestedTest {
             private Clone mossOuterClone;
             private Clone mossInnerClone;
-            private Clone pycloneOuterClone;
-            private Clone pycloneInnerClone;
+            private Clone cycloneOuterClone;
+            private Clone cycloneInnerClone;
             private Clone nicadOuterClone;
             private Clone nicadInnerClone;
 
@@ -78,16 +78,16 @@ public class CloneTest {
                 mossInnerClone.addSource(new MossSource("b.b", 250L, 255L,
                         0.99));
 
-                pycloneOuterClone = new PyCloneClone("file", 23L);
-                pycloneOuterClone.addSource(new PyCloneSource("b.b", 200L,
+                cycloneOuterClone = new CycloneClone("file", 23L);
+                cycloneOuterClone.addSource(new CycloneSource("b.b", 200L,
                         300L, 0.2));
-                pycloneOuterClone.addSource(new PyCloneSource("a.a", 100L,
+                cycloneOuterClone.addSource(new CycloneSource("a.a", 100L,
                         200L, 0.2));
 
-                pycloneInnerClone = new PyCloneClone("file", 2L);
-                pycloneInnerClone.addSource(new PyCloneSource("a.a", 155L,
+                cycloneInnerClone = new CycloneClone("file", 2L);
+                cycloneInnerClone.addSource(new CycloneSource("a.a", 155L,
                         160L, 2.1));
-                pycloneInnerClone.addSource(new PyCloneSource("b.b", 255L,
+                cycloneInnerClone.addSource(new CycloneSource("b.b", 255L,
                         260L, 2.3));
 
                 nicadOuterClone = new NiCadClone(23L, 2L);
@@ -109,18 +109,18 @@ public class CloneTest {
             }
 
             @Test
-            public void testMossOuterPycloneInner() {
-                assertEquals(mossOuterClone, pycloneInnerClone);
+            public void testMossOuterCycloneInner() {
+                assertEquals(mossOuterClone, cycloneInnerClone);
             }
 
             @Test
-            public void testPycloneOuterMossInner() {
-                assertEquals(pycloneOuterClone, mossInnerClone);
+            public void testCycloneOuterMossInner() {
+                assertEquals(cycloneOuterClone, mossInnerClone);
             }
 
             @Test
-            public void testPycloneOuterNicadInner() {
-                assertEquals(pycloneOuterClone, nicadInnerClone);
+            public void testCycloneOuterNicadInner() {
+                assertEquals(cycloneOuterClone, nicadInnerClone);
             }
 
             @Test
@@ -129,15 +129,15 @@ public class CloneTest {
             }
 
             @Test
-            public void testNicadOuterPycloneInner() {
-                assertEquals(nicadOuterClone, pycloneInnerClone);
+            public void testNicadOuterCycloneInner() {
+                assertEquals(nicadOuterClone, cycloneInnerClone);
             }
         }
 
         @Nested
         public class WithinErrorTest {
             private Clone mossClone;
-            private Clone pycloneClone;
+            private Clone cycloneClone;
             private Clone nicadClone;
 
             @BeforeEach
@@ -147,10 +147,10 @@ public class CloneTest {
                 mossClone.addSource(new MossSource("file2.txt", 33L, 45L,
                         0.99));
 
-                pycloneClone = new PyCloneClone("module", 2L);
-                pycloneClone.addSource(new PyCloneSource("file.txt", 12L, 17L
+                cycloneClone = new CycloneClone("module", 2L);
+                cycloneClone.addSource(new CycloneSource("file.txt", 12L, 17L
                         , 0.2));
-                pycloneClone.addSource(new PyCloneSource("file2.txt", 30L,
+                cycloneClone.addSource(new CycloneSource("file2.txt", 30L,
                         42L, 1.0));
 
                 nicadClone = new NiCadClone(33L, 2L);
@@ -161,7 +161,7 @@ public class CloneTest {
 
             @Test
             public void testAdjustedBefore() {
-                assertEquals(mossClone, pycloneClone);
+                assertEquals(mossClone, cycloneClone);
             }
 
             @Test
@@ -171,14 +171,14 @@ public class CloneTest {
 
             @Test
             public void testNotWithinRange() {
-                assertNotEquals(nicadClone, pycloneClone);
+                assertNotEquals(nicadClone, cycloneClone);
             }
         }
 
         @Nested
         public class NotEqualsTest {
             private Clone mossClone;
-            private Clone pycloneClone;
+            private Clone cycloneClone;
             private Clone nicadClone;
 
             @BeforeEach
@@ -188,10 +188,10 @@ public class CloneTest {
                 mossClone.addSource(new MossSource("file2.txt", 33L, 45L,
                         0.87));
 
-                pycloneClone = new PyCloneClone("module", 2L);
-                pycloneClone.addSource(new PyCloneSource("file.txt", 15L,
+                cycloneClone = new CycloneClone("module", 2L);
+                cycloneClone.addSource(new CycloneSource("file.txt", 15L,
                         20L, 2.0));
-                pycloneClone.addSource(new PyCloneSource("file2.txt", 33L, 45L, 1.0));
+                cycloneClone.addSource(new CycloneSource("file2.txt", 33L, 45L, 1.0));
 
                 nicadClone = new NiCadClone(33L, 2L);
                 nicadClone.addSource(new NiCadSource("file.txt", 15L, 20L, 2L));
@@ -200,11 +200,11 @@ public class CloneTest {
 
             @Test
             public void testNotSameFirstFileName() {
-                pycloneClone = new PyCloneClone("module", 2L);
-                pycloneClone.addSource(new PyCloneSource("filea.txt", 15L,
+                cycloneClone = new CycloneClone("module", 2L);
+                cycloneClone.addSource(new CycloneSource("filea.txt", 15L,
                         20L, 2.0));
-                pycloneClone.addSource(new PyCloneSource("file2.txt", 33L, 45L, 1.0));
-                assertNotEquals(mossClone, pycloneClone);
+                cycloneClone.addSource(new CycloneSource("file2.txt", 33L, 45L, 1.0));
+                assertNotEquals(mossClone, cycloneClone);
             }
 
             @Test
@@ -226,12 +226,12 @@ public class CloneTest {
 
             @Test
             public void testNotSameSecondStartLine() {
-                pycloneClone = new PyCloneClone("module", 2L);
-                pycloneClone.addSource(new PyCloneSource("file.txt", 15L,
+                cycloneClone = new CycloneClone("module", 2L);
+                cycloneClone.addSource(new CycloneSource("file.txt", 15L,
                         20L, 2.0));
-                pycloneClone.addSource(new PyCloneSource("file2.txt", 100L, 45L
+                cycloneClone.addSource(new CycloneSource("file2.txt", 100L, 45L
                         , 1.0));
-                assertNotEquals(mossClone, pycloneClone);
+                assertNotEquals(mossClone, cycloneClone);
             }
 
             @Test
@@ -241,7 +241,7 @@ public class CloneTest {
                         0.97));
                 mossClone.addSource(new MossSource("file2.txt", 33L, 45L,
                         0.99));
-                assertNotEquals(pycloneClone, mossClone);
+                assertNotEquals(cycloneClone, mossClone);
             }
 
             @Test
@@ -250,8 +250,23 @@ public class CloneTest {
                 nicadClone.addSource(new NiCadSource("file.txt", 15L, 20L, 2L));
                 nicadClone.addSource(new NiCadSource("file2.txt", 33L, 33L,
                         1L));
-                assertNotEquals(pycloneClone, nicadClone);
+                assertNotEquals(cycloneClone, nicadClone);
             }
         }
+    }
+
+    @Test
+    public void multiTest() {
+        Clone cycloneClone1 = new CycloneClone("module", 2L);
+        cycloneClone1.addSource(new CycloneSource("filea.txt", 15L,
+                20L, 2.0));
+        cycloneClone1.addSource(new CycloneSource("file2.txt", 35L, 45L, 1.0));
+
+        Clone cycloneClone2 = new CycloneClone("module", 2L);
+        cycloneClone2.addSource(new CycloneSource("filea.txt", 10L,
+                25L, 2.0));
+        cycloneClone2.addSource(new CycloneSource("file2.txt", 25L, 55L, 1.0));
+
+        assertEquals(cycloneClone1, cycloneClone2);
     }
 }

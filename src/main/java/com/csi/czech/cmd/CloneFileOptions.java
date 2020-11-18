@@ -5,7 +5,7 @@ import java.io.IOException;
 /**
  * Represents a set of files to be processed and compared.
  * Files are divided based on algorithm, but we're comparing
- * PyClone files to Moss and NiCad files.
+ * Cyclone files to Moss and NiCad files.
  */
 public class CloneFileOptions implements CloneOptions {
     /**
@@ -21,11 +21,11 @@ public class CloneFileOptions implements CloneOptions {
     /** Mode in which the files were generated */
     private CloneMode mode;
     /** File for Oxygen */
-    private String pycloneOxygenFile;
+    private String cycloneOxygenFile;
     /** File for Chlorine */
-    private String pycloneChlorineFile;
+    private String cycloneChlorineFile;
     /** File for Iodine */
-    private String pycloneIodineFile;
+    private String cycloneIodineFile;
     /** File for NiCad - blocks algorithm */
     private String nicadBlocksFile;
     /** File for NiCad - functions algorithm */
@@ -53,48 +53,48 @@ public class CloneFileOptions implements CloneOptions {
      * Returns the Oxygen file
      * @return the filename
      */
-    public String getPycloneOxygenFile() {
-        return pycloneOxygenFile;
+    public String getCycloneOxygenFile() {
+        return cycloneOxygenFile;
     }
 
     /**
      * Sets the Oxygen file
-     * @param pycloneOxygenFile the filename to set
+     * @param cycloneOxygenFile the filename to set
      */
-    public void setPycloneOxygenFile(String pycloneOxygenFile) {
-        this.pycloneOxygenFile = pycloneOxygenFile;
+    public void setCycloneOxygenFile(String cycloneOxygenFile) {
+        this.cycloneOxygenFile = cycloneOxygenFile;
     }
 
     /**
      * Returns the Chlorine file
      * @return the filename
      */
-    public String getPycloneChlorineFile() {
-        return pycloneChlorineFile;
+    public String getCycloneChlorineFile() {
+        return cycloneChlorineFile;
     }
 
     /**
      * Sets the Chlorine file
-     * @param pycloneChlorineFile the filename to set
+     * @param cycloneChlorineFile the filename to set
      */
-    public void setPycloneChlorineFile(String pycloneChlorineFile) {
-        this.pycloneChlorineFile = pycloneChlorineFile;
+    public void setCycloneChlorineFile(String cycloneChlorineFile) {
+        this.cycloneChlorineFile = cycloneChlorineFile;
     }
 
     /**
      * Returns the Iodine file
      * @return the filename
      */
-    public String getPycloneIodineFile() {
-        return pycloneIodineFile;
+    public String getCycloneIodineFile() {
+        return cycloneIodineFile;
     }
 
     /**
      * Sets the Iodine file
-     * @param pycloneIodineFile the filename to set
+     * @param cycloneIodineFile the filename to set
      */
-    public void setPycloneIodineFile(String pycloneIodineFile) {
-        this.pycloneIodineFile = pycloneIodineFile;
+    public void setCycloneIodineFile(String cycloneIodineFile) {
+        this.cycloneIodineFile = cycloneIodineFile;
     }
 
     /**

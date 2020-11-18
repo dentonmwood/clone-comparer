@@ -8,11 +8,11 @@ import java.util.List;
  */
 public class CloneHeaderOptions implements CloneOptions {
     /** Indicator for Oxygen */
-    private boolean pycloneOxygen;
+    private boolean cycloneOxygen;
     /** Indicator for Chlorine */
-    private boolean pycloneChlorine;
+    private boolean cycloneChlorine;
     /** Indicator for Iodine */
-    private boolean pycloneIodine;
+    private boolean cycloneIodine;
     /** Indicator for NiCad Blocks */
     private boolean nicadBlocks;
     /** Indicator for NiCad Functions */
@@ -21,16 +21,16 @@ public class CloneHeaderOptions implements CloneOptions {
     private boolean moss;
 
     /**
-     * Enum class representing the PyClone algorithms
+     * Enum class representing the Cyclone algorithms
      */
-    public enum PyCloneTool {
+    public enum CycloneTool {
         OXYGEN,
         CHLORINE,
         IODINE
     }
 
     /**
-     * Enum class representing the tools to benchmark against PyClone
+     * Enum class representing the tools to benchmark against Cyclone
      */
     public enum BenchmarkTool {
         NICAD_BLOCKS,
@@ -42,48 +42,48 @@ public class CloneHeaderOptions implements CloneOptions {
      * Gets the Oxygen flag
      * @return the flag
      */
-    public boolean isPycloneOxygen() {
-        return pycloneOxygen;
+    public boolean isCycloneOxygen() {
+        return cycloneOxygen;
     }
 
     /**
      * Sets the Oxygen flag
-     * @param pycloneOxygen the flag to set
+     * @param cycloneOxygen the flag to set
      */
-    public void setPycloneOxygen(boolean pycloneOxygen) {
-        this.pycloneOxygen = pycloneOxygen;
+    public void setCycloneOxygen(boolean cycloneOxygen) {
+        this.cycloneOxygen = cycloneOxygen;
     }
 
     /**
      * Gets the Chlorine flag
      * @return the flag
      */
-    public boolean isPycloneChlorine() {
-        return pycloneChlorine;
+    public boolean isCycloneChlorine() {
+        return cycloneChlorine;
     }
 
     /**
      * Sets the Chlorine flag
-     * @param pycloneChlorine the flag to set
+     * @param cycloneChlorine the flag to set
      */
-    public void setPycloneChlorine(boolean pycloneChlorine) {
-        this.pycloneChlorine = pycloneChlorine;
+    public void setCycloneChlorine(boolean cycloneChlorine) {
+        this.cycloneChlorine = cycloneChlorine;
     }
 
     /**
      * Gets the Iodine flag
      * @return the flag
      */
-    public boolean isPycloneIodine() {
-        return pycloneIodine;
+    public boolean isCycloneIodine() {
+        return cycloneIodine;
     }
 
     /**
      * Sets the Iodine flag
-     * @param pycloneIodine the flag to set
+     * @param cycloneIodine the flag to set
      */
-    public void setPycloneIodine(boolean pycloneIodine) {
-        this.pycloneIodine = pycloneIodine;
+    public void setCycloneIodine(boolean cycloneIodine) {
+        this.cycloneIodine = cycloneIodine;
     }
 
     /**
@@ -135,19 +135,19 @@ public class CloneHeaderOptions implements CloneOptions {
     }
 
     /**
-     * Gets the list of PyClone algorithms to print
-     * @return the PyClone algorithms
+     * Gets the list of Cyclone algorithms to print
+     * @return the Cyclone algorithms
      */
-    public List<PyCloneTool> getPyCloneTools() {
-        List<PyCloneTool> tools = new ArrayList<>();
-        if (this.pycloneOxygen) {
-            tools.add(PyCloneTool.OXYGEN);
+    public List<CycloneTool> getCycloneTools() {
+        List<CycloneTool> tools = new ArrayList<>();
+        if (this.cycloneOxygen) {
+            tools.add(CycloneTool.OXYGEN);
         }
-        if (this.pycloneChlorine) {
-            tools.add(PyCloneTool.CHLORINE);
+        if (this.cycloneChlorine) {
+            tools.add(CycloneTool.CHLORINE);
         }
-        if (this.pycloneIodine) {
-            tools.add(PyCloneTool.IODINE);
+        if (this.cycloneIodine) {
+            tools.add(CycloneTool.IODINE);
         }
         return tools;
     }

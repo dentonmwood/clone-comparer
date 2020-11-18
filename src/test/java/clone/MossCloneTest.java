@@ -3,10 +3,10 @@ package clone;
 import com.csi.czech.clone.Clone;
 import com.csi.czech.clone.MossClone;
 import com.csi.czech.clone.NiCadClone;
-import com.csi.czech.clone.PyCloneClone;
+import com.csi.czech.clone.CycloneClone;
 import com.csi.czech.source.MossSource;
 import com.csi.czech.source.NiCadSource;
-import com.csi.czech.source.PyCloneSource;
+import com.csi.czech.source.CycloneSource;
 import org.junit.jupiter.api.*;
 
 import java.util.*;
@@ -89,14 +89,14 @@ public class MossCloneTest {
         }
 
         @Test
-        public void testNestedMultiClassPyClone() {
+        public void testNestedMultiClassCyclone() {
             Clone clone1 = new MossClone();
             clone1.addSource(new MossSource("file.txt", 15L, 17L, 0.89));
             clone1.addSource(new MossSource("file2.txt", 17L, 18L, 0.88));
 
-            Clone clone2 = new PyCloneClone("module", 2L);
-            clone2.addSource(new PyCloneSource("file.txt", 5L, 25L, 0.2));
-            clone2.addSource(new PyCloneSource("file2.txt", 6L, 21L, 0.2));
+            Clone clone2 = new CycloneClone("module", 2L);
+            clone2.addSource(new CycloneSource("file.txt", 5L, 25L, 0.2));
+            clone2.addSource(new CycloneSource("file2.txt", 6L, 21L, 0.2));
 
             assertEquals(clone1, clone2);
         }

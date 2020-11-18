@@ -26,7 +26,7 @@ the -h option to see the description of how to use it. There are three main mode
 # External Libraries
 
 This project uses multiple external libraries, including:
-- Google's [SimpleJSON](https://code.google.com/archive/p/simplejson/) library to parse the PyClone JSON files.
+- Google's [SimpleJSON](https://code.google.com/archive/p/simplejson/) library to parse the Cyclone JSON files.
 - Java's [SAX parser](https://docs.oracle.com/javase/tutorial/jaxp/sax/parsing.html) to handle NiCad's XML files.
 - The [HTMLUnit](http://htmlunit.sourceforge.net/) library to scrape the results from the Moss website.
 - The Apache [Commons CLI](http://commons.apache.org/proper/commons-cli/) library to handle command-line argument parsing.

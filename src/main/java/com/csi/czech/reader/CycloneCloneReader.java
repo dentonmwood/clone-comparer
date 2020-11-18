@@ -8,8 +8,8 @@ package com.csi.czech.reader;
 
 import com.csi.czech.clone.Clone;
 import com.csi.czech.source.Source;
-import com.csi.czech.clone.PyCloneClone;
-import com.csi.czech.source.PyCloneSource;
+import com.csi.czech.clone.CycloneClone;
+import com.csi.czech.source.CycloneSource;
 import org.apache.commons.io.FilenameUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -22,10 +22,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Reads the PyClone clones. We use Google's SimpleJSON library
+ * Reads the Cyclone clones. We use Google's SimpleJSON library
  * to parse the files and return the results.
  */
-public class PyCloneCloneReader implements CloneReader {
+public class CycloneCloneReader implements CloneReader {
     /** The SimpleJSON parser to use */
     private final JSONParser jsonParser;
 
@@ -33,7 +33,7 @@ public class PyCloneCloneReader implements CloneReader {
      * Constructor for the reader
      * @param jsonParser the SimpleJSON parser to use
      */
-    public PyCloneCloneReader(JSONParser jsonParser) {
+    public CycloneCloneReader(JSONParser jsonParser) {
         this.jsonParser = jsonParser;
     }
 
@@ -97,17 +97,17 @@ public class PyCloneCloneReader implements CloneReader {
                 Long startLine = Long.parseLong(m.group(2));
                 Long endLine = Long.parseLong(m.group(3));
                 Double weight = (Double) sourceObject.get(originKey);
-                origins.add(new PyCloneSource(filename, startLine, endLine,
+                origins.add(new CycloneSource(filename, startLine, endLine,
                         weight));
             } else {
-                throw new IOException("Invalid PyClone source");
+                throw new IOException("Invalid Cyclone source");
             }
         }
         return origins;
     }
 
     /**
-     * Adds clones to the returned result. This is intensive because if PyClone detects three
+     * Adds clones to the returned result. This is intensive because if Cyclone detects three
      * or more sources which are all clones of each other, it returns them as a cluster instead
      * of individual pairings. This function breaks the cluster into pairs of 2 to make them
      * easier to compare.
@@ -122,7 +122,7 @@ public class PyCloneCloneReader implements CloneReader {
             for (int j = i + 1; j < sources.size(); j++) {
                 Source source1 = sources.get(i);
                 Source source2 = sources.get(j);
-                Clone clone = new PyCloneClone(value, matchWeight);
+                Clone clone = new CycloneClone(value, matchWeight);
                 clone.addSource(source1);
                 clone.addSource(source2);
 
