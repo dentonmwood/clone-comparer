@@ -3,12 +3,12 @@ package com.csi.czech.source;
 import java.util.Objects;
 
 /**
- * File source read from PyClone. Implementation makes debugging easier.
+ * File source read from Cyclone. Implementation makes debugging easier.
  */
-public class PyCloneSource extends Source {
+public class CycloneSource extends Source {
     private Double weight;
 
-    public PyCloneSource(String filename, Long startLine, Long endLine,
+    public CycloneSource(String filename, Long startLine, Long endLine,
                          Double weight) {
         super(filename, startLine, endLine);
         this.weight = weight;
@@ -31,7 +31,7 @@ public class PyCloneSource extends Source {
 
     @Override
     public String toString() {
-        return "PyCloneSource{" +
+        return "CycloneSource{" +
                 "weight=" + weight +
                 ", filename='" + filename + '\'' +
                 ", startLine=" + startLine +

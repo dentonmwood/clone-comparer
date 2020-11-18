@@ -4,7 +4,7 @@ import com.csi.czech.clone.Clone;
 import com.csi.czech.comparer.CloneComparer;
 import com.csi.czech.reader.MossCloneReader;
 import com.csi.czech.reader.NiCadCloneReader;
-import com.csi.czech.reader.PyCloneCloneReader;
+import com.csi.czech.reader.CycloneCloneReader;
 import com.gargoylesoftware.htmlunit.WebClient;
 import org.json.simple.parser.JSONParser;
 
@@ -43,13 +43,13 @@ public class CLIHandler {
         StringBuilder header = new StringBuilder();
         // Leave space for when double algorithm runs
         header.append(",");
-        for (CloneHeaderOptions.PyCloneTool tool: options.getPyCloneTools()) {
+        for (CloneHeaderOptions.CycloneTool tool: options.getCycloneTools()) {
             header.append("# of ").append(tool.toString()).append(" clones,");
         }
         for (CloneHeaderOptions.BenchmarkTool tool: options.getBenchmarkTools()) {
             header.append("# of ").append(tool.toString()).append(" clones,");
         }
-        for (CloneHeaderOptions.PyCloneTool pyCloneTool: options.getPyCloneTools()) {
+        for (CloneHeaderOptions.CycloneTool pyCloneTool: options.getCycloneTools()) {
             for (CloneHeaderOptions.BenchmarkTool benchmarkTool: options.getBenchmarkTools()) {
                 header.append("% of ").append(pyCloneTool).append(" in ").append(benchmarkTool).append(",");
                 header.append("% of ").append(benchmarkTool).append(" in ").append(pyCloneTool).append(",");
@@ -74,13 +74,13 @@ public class CLIHandler {
      * @throws Exception if one or more of the files cannot be read
      */
     public void visit(CloneFileOptions options) {
-        // Read the PyClone clones
+        // Read the Cyclone clones
         List<List<Clone>> pyCloneClones = new ArrayList<>();
         List<Boolean> pyCloneErrors = new ArrayList<>();
-        PyCloneCloneReader pyCloneCloneReader = new PyCloneCloneReader(new JSONParser());
-        if (options.getPycloneOxygenFile() != null) {
+        CycloneCloneReader pyCloneCloneReader = new CycloneCloneReader(new JSONParser());
+        if (options.getCycloneOxygenFile() != null) {
             try {
-                pyCloneClones.add(pyCloneCloneReader.readClones(options.getPycloneOxygenFile()));
+                pyCloneClones.add(pyCloneCloneReader.readClones(options.getCycloneOxygenFile()));
                 pyCloneErrors.add(false);
             } catch (Exception e) {
                 pyCloneClones.add(new ArrayList<>());
@@ -89,9 +89,9 @@ public class CLIHandler {
                         "Could not process Oxygen: " + e.toString());
             }
         }
-        if (options.getPycloneChlorineFile() != null) {
+        if (options.getCycloneChlorineFile() != null) {
             try {
-                pyCloneClones.add(pyCloneCloneReader.readClones(options.getPycloneChlorineFile()));
+                pyCloneClones.add(pyCloneCloneReader.readClones(options.getCycloneChlorineFile()));
                 pyCloneErrors.add(false);
             } catch (Exception e) {
                 pyCloneClones.add(new ArrayList<>());
@@ -100,9 +100,9 @@ public class CLIHandler {
                         "Could not process Chlorine: " + e.toString());
             }
         }
-        if (options.getPycloneIodineFile() != null) {
+        if (options.getCycloneIodineFile() != null) {
             try {
-                pyCloneClones.add(pyCloneCloneReader.readClones(options.getPycloneIodineFile()));
+                pyCloneClones.add(pyCloneCloneReader.readClones(options.getCycloneIodineFile()));
                 pyCloneErrors.add(false);
             } catch (Exception e) {
                 pyCloneClones.add(new ArrayList<>());

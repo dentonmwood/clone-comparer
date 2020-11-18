@@ -1,24 +1,24 @@
 package com.csi.czech.clone;
 
-import com.csi.czech.source.PyCloneSource;
+import com.csi.czech.source.CycloneSource;
 import com.csi.czech.source.Source;
 
 /**
- * Represents a clone detected by the PyClone tool
+ * Represents a clone detected by the Cyclone tool
  */
-public class PyCloneClone extends Clone {
+public class CycloneClone extends Clone {
     /** Represents the Python AST classification of the code snippet */
     private final String value;
     /** Number representing the similarity between the two code snippets */
     private final Long matchWeight;
 
     /**
-     * Constructor for the PyClone clone class
+     * Constructor for the Cyclone clone class
      *
      * @param value the Python AST class of the snippet
      * @param matchWeight the similarity between the snippets
      */
-    public PyCloneClone(String value, Long matchWeight) {
+    public CycloneClone(String value, Long matchWeight) {
         super();
         this.value = value;
         this.matchWeight = matchWeight;
@@ -44,9 +44,9 @@ public class PyCloneClone extends Clone {
 
     @Override
     public void addSource(Source source) {
-        if (!(source instanceof PyCloneSource)) {
-            throw new IllegalArgumentException("Only PyClone sources can be "
-                    + "attached to a PyClone clone");
+        if (!(source instanceof CycloneSource)) {
+            throw new IllegalArgumentException("Only Cyclone sources can be "
+                    + "attached to a Cyclone clone");
         }
         super.addSource(source);
     }
@@ -65,7 +65,7 @@ public class PyCloneClone extends Clone {
     @Override
     public String toString() {
         StringBuilder ret = new StringBuilder();
-        ret.append("PyClone Clone: value: ").append(this.value)
+        ret.append("Cyclone Clone: value: ").append(this.value)
                 .append(", match weight: ").append(this.matchWeight).append(", origins: ").append("\n");
         for (Source origin: this.sources) {
             ret.append(origin.toString());

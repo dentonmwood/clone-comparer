@@ -41,9 +41,9 @@ public class CLIParser {
         this.options.addOption(INCLUDE_ALGORITHM, true, "Specify algorithm to include in header (only used in header mode)");
         this.options.addOption(HELP, "get this page");
         this.options.addOption(MODE, true, "Set mode - (s)ingle, (d)ouble, (h)eader");
-        this.options.addOption(PYCLONE_OXYGEN, true, "Specify PyClone Oxygen file to run (single mode only)");
-        this.options.addOption(PYCLONE_CHLORINE, true, "Specify PyClone Chlorine file to run (single or double)");
-        this.options.addOption(PYCLONE_IODINE, true, "Specify PyClone Iodine file to run (double only)");
+        this.options.addOption(PYCLONE_OXYGEN, true, "Specify Cyclone Oxygen file to run (single mode only)");
+        this.options.addOption(PYCLONE_CHLORINE, true, "Specify Cyclone Chlorine file to run (single or double)");
+        this.options.addOption(PYCLONE_IODINE, true, "Specify Cyclone Iodine file to run (double only)");
         this.options.addOption(NICAD_BLOCKS, true, "Specify NiCad Blocks file to run (single or double)");
         this.options.addOption(NICAD_FUNCTIONS, true, "Specify NiCad Functions file to run (single or double)");
         this.options.addOption(MOSS, true, "Specify Moss file to run (single only)");
@@ -98,23 +98,23 @@ public class CLIParser {
      * @return the processed file arguments
      */
     private CloneFileOptions receiveFiles(CommandLine cmd, CloneFileOptions.CloneMode mode) {
-        boolean pyclone = false;
+        boolean cyclone = false;
         boolean benchmark = false;
 
         CloneFileOptions cloneOptions = new CloneFileOptions();
         cloneOptions.setMode(mode);
 
         if (cmd.hasOption(PYCLONE_OXYGEN)) {
-            cloneOptions.setPycloneOxygenFile(cmd.getOptionValue(PYCLONE_OXYGEN));
-            pyclone = true;
+            cloneOptions.setCycloneOxygenFile(cmd.getOptionValue(PYCLONE_OXYGEN));
+            cyclone = true;
         }
         if (cmd.hasOption(PYCLONE_CHLORINE)) {
-            cloneOptions.setPycloneChlorineFile(cmd.getOptionValue(PYCLONE_CHLORINE));
-            pyclone = true;
+            cloneOptions.setCycloneChlorineFile(cmd.getOptionValue(PYCLONE_CHLORINE));
+            cyclone = true;
         }
         if (cmd.hasOption(PYCLONE_IODINE)) {
-            cloneOptions.setPycloneIodineFile(cmd.getOptionValue(PYCLONE_IODINE));
-            pyclone = true;
+            cloneOptions.setCycloneIodineFile(cmd.getOptionValue(PYCLONE_IODINE));
+            cyclone = true;
         }
 
         if (cmd.hasOption(NICAD_BLOCKS)) {
@@ -130,8 +130,8 @@ public class CLIParser {
             benchmark = true;
         }
 
-        if (!pyclone) {
-            throw new IllegalArgumentException("Must specify at least one PyClone file");
+        if (!cyclone) {
+            throw new IllegalArgumentException("Must specify at least one Cyclone file");
         }
         if (!benchmark) {
             throw new IllegalArgumentException("Must specify at least one benchmark file");
@@ -149,9 +149,9 @@ public class CLIParser {
         CloneHeaderOptions headerOptions = new CloneHeaderOptions();
         for (String arg: cmd.getArgs()) {
             switch (arg) {
-                case PYCLONE_OXYGEN -> headerOptions.setPycloneOxygen(true);
-                case PYCLONE_CHLORINE -> headerOptions.setPycloneChlorine(true);
-                case PYCLONE_IODINE -> headerOptions.setPycloneIodine(true);
+                case PYCLONE_OXYGEN -> headerOptions.setCycloneOxygen(true);
+                case PYCLONE_CHLORINE -> headerOptions.setCycloneChlorine(true);
+                case PYCLONE_IODINE -> headerOptions.setCycloneIodine(true);
                 case NICAD_BLOCKS -> headerOptions.setNicadBlocks(true);
                 case NICAD_FUNCTIONS -> headerOptions.setNicadFunctions(true);
                 case MOSS -> headerOptions.setMoss(true);
