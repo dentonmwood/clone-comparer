@@ -254,19 +254,4 @@ public class CloneTest {
             }
         }
     }
-
-    @Test
-    public void multiTest() {
-        Clone cycloneClone1 = new CycloneClone("module", 2L);
-        cycloneClone1.addSource(new CycloneSource("filea.txt", 15L,
-                20L, 2.0));
-        cycloneClone1.addSource(new CycloneSource("file2.txt", 35L, 45L, 1.0));
-
-        Clone cycloneClone2 = new CycloneClone("module", 2L);
-        cycloneClone2.addSource(new CycloneSource("filea.txt", 10L,
-                25L, 2.0));
-        cycloneClone2.addSource(new CycloneSource("file2.txt", 25L, 55L, 1.0));
-
-        assertEquals(cycloneClone1, cycloneClone2);
-    }
 }

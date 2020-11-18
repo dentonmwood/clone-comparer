@@ -156,7 +156,6 @@ public class CLIHandler {
         }
 
         // Compare the clones
-        CloneComparer comparer = new CloneComparer();
         List<Double> percentages = new ArrayList<>();
         for (int i = 0; i < pyCloneClones.size(); i++) {
             List<Clone> pyCloneList = pyCloneClones.get(i);
@@ -167,9 +166,9 @@ public class CLIHandler {
                     percentages.add(ERROR);
                 } else {
                     // Compare both ways
-                    percentages.add(comparer.compareCloneLists(pyCloneList,
+                    percentages.add(CloneComparer.compareCloneLists(pyCloneList,
                             benchmarkList));
-                    percentages.add(comparer.compareCloneLists(benchmarkList,
+                    percentages.add(CloneComparer.compareCloneLists(benchmarkList,
                             pyCloneList));
                 }
             }
