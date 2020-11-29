@@ -20,6 +20,8 @@ public class CloneFileOptions implements CloneOptions {
 
     /** Mode in which the files were generated */
     private CloneMode mode;
+    /** Whether to only show counts instead of percentages and times */
+    private Boolean onlyShowCounts = false;
     /** File for Oxygen */
     private String cycloneOxygenFile;
     /** File for Chlorine */
@@ -47,6 +49,22 @@ public class CloneFileOptions implements CloneOptions {
      */
     public void setMode(CloneMode mode) {
         this.mode = mode;
+    }
+
+    /**
+     * Returns whether to only show counts
+     * @return the counts option
+     */
+    public Boolean getOnlyShowCounts() {
+        return onlyShowCounts;
+    }
+
+    /**
+     * Sets the option to only show counts
+     * @param onlyShowCounts the option to set
+     */
+    public void setOnlyShowCounts(Boolean onlyShowCounts) {
+        this.onlyShowCounts = onlyShowCounts;
     }
 
     /**

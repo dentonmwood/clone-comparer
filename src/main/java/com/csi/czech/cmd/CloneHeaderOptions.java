@@ -19,6 +19,8 @@ public class CloneHeaderOptions implements CloneOptions {
     private boolean nicadFunctions;
     /** Indicator for Moss */
     private boolean moss;
+    /** Whether to only show counts instead of percentages and times */
+    private Boolean onlyShowCounts = false;
 
     /**
      * Enum class representing the Cyclone algorithms
@@ -132,6 +134,22 @@ public class CloneHeaderOptions implements CloneOptions {
      */
     public void setMoss(boolean moss) {
         this.moss = moss;
+    }
+
+    /**
+     * Returns whether to only show counts
+     * @return the counts option
+     */
+    public Boolean getOnlyShowCounts() {
+        return onlyShowCounts;
+    }
+
+    /**
+     * Sets the option to only show counts
+     * @param onlyShowCounts the option to set
+     */
+    public void setOnlyShowCounts(Boolean onlyShowCounts) {
+        this.onlyShowCounts = onlyShowCounts;
     }
 
     /**

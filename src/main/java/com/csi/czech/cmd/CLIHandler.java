@@ -34,8 +34,8 @@ public class CLIHandler {
     }
 
     /**
-     * Prints the header line for the results. This should be called in a separate run
-     * from file processing and only with the algorithms to run
+     * Prints the header line for the results. This should be called in a
+     * separate run from file processing and only with the algorithms to run
      *
      * @param options which headers to print
      */
@@ -46,13 +46,21 @@ public class CLIHandler {
         for (CloneHeaderOptions.CycloneTool tool: options.getCycloneTools()) {
             header.append("# of ").append(tool.toString()).append(" clones,");
         }
-        for (CloneHeaderOptions.BenchmarkTool tool: options.getBenchmarkTools()) {
+        for (CloneHeaderOptions.BenchmarkTool tool:
+                options.getBenchmarkTools()) {
             header.append("# of ").append(tool.toString()).append(" clones,");
         }
-        for (CloneHeaderOptions.CycloneTool pyCloneTool: options.getCycloneTools()) {
-            for (CloneHeaderOptions.BenchmarkTool benchmarkTool: options.getBenchmarkTools()) {
-                header.append("% of ").append(pyCloneTool).append(" in ").append(benchmarkTool).append(",");
-                header.append("% of ").append(benchmarkTool).append(" in ").append(pyCloneTool).append(",");
+
+        if (!options.getOnlyShowCounts()) {
+            for (CloneHeaderOptions.CycloneTool pyCloneTool:
+                    options.getCycloneTools()) {
+                for (CloneHeaderOptions.BenchmarkTool benchmarkTool:
+                        options.getBenchmarkTools()) {
+                    header.append("% of ").append(pyCloneTool)
+                            .append(" in ").append(benchmarkTool).append(",");
+                    header.append("% of ").append(benchmarkTool)
+                            .append(" in ").append(pyCloneTool).append(",");
+                }
             }
         }
         sysOut.println(header.toString());
@@ -157,19 +165,19 @@ public class CLIHandler {
 
         // Compare the clones
         List<Double> percentages = new ArrayList<>();
-        for (int i = 0; i < pyCloneClones.size(); i++) {
-            List<Clone> pyCloneList = pyCloneClones.get(i);
-            for (int j = 0; j < benchmarkClones.size(); j++) {
-                List<Clone> benchmarkList = benchmarkClones.get(j);
-                if (pyCloneErrors.get(i) || benchmarkErrors.get(j)) {
-                    percentages.add(ERROR);
-                    percentages.add(ERROR);
-                } else {
-                    // Compare both ways
-                    percentages.add(CloneComparer.compareCloneLists(pyCloneList,
-                            benchmarkList));
-                    percentages.add(CloneComparer.compareCloneLists(benchmarkList,
-                            pyCloneList));
+        if (!options.getOnlyShowCounts()) {
+            for (int i = 0; i < pyCloneClones.size(); i++) {
+                List<Clone> pyCloneList = pyCloneClones.get(i);
+                for (int j = 0; j < benchmarkClones.size(); j++) {
+                    List<Clone> benchmarkList = benchmarkClones.get(j);
+                    if (pyCloneErrors.get(i) || benchmarkErrors.get(j)) {
+                        percentages.add(ERROR);
+                        percentages.add(ERROR);
+                    } else {
+                        // Compare both ways
+                        percentages.add(CloneComparer.compareCloneLists(pyCloneList, benchmarkList));
+                        percentages.add(CloneComparer.compareCloneLists(benchmarkList, pyCloneList));
+                    }
                 }
             }
         }
@@ -199,13 +207,15 @@ public class CLIHandler {
         }
 
         // Print % of similarity between tools
-        for (Double percentage: percentages) {
-            if (!percentage.equals(ERROR)) {
-                results.append(percentage);
-            } else {
-                results.append("N/A");
+        if (!options.getOnlyShowCounts()) {
+            for (Double percentage : percentages) {
+                if (!percentage.equals(ERROR)) {
+                    results.append(percentage);
+                } else {
+                    results.append("N/A");
+                }
+                results.append(",");
             }
-            results.append(",");
         }
 
         // Output the results

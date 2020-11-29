@@ -20,6 +20,9 @@ public class CLIParser {
     private static final String DOUBLE_MODE = "d";
     private static final String HEADER_MODE = "h";
 
+    // Comparison options
+    private static final String ONLY_SHOW_COUNTS = "c";
+
     // File options
     private static final String PYCLONE_OXYGEN = "pO";
     private static final String PYCLONE_CHLORINE = "pC";
@@ -38,15 +41,26 @@ public class CLIParser {
      */
     public CLIParser() {
         this.options = new Options();
-        this.options.addOption(INCLUDE_ALGORITHM, true, "Specify algorithm to include in header (only used in header mode)");
+        this.options.addOption(INCLUDE_ALGORITHM, true,
+                "Specify algorithm to include in header (only used in header "
+                        + "mode)");
         this.options.addOption(HELP, "get this page");
-        this.options.addOption(MODE, true, "Set mode - (s)ingle, (d)ouble, (h)eader");
-        this.options.addOption(PYCLONE_OXYGEN, true, "Specify Cyclone Oxygen file to run (single mode only)");
-        this.options.addOption(PYCLONE_CHLORINE, true, "Specify Cyclone Chlorine file to run (single or double)");
-        this.options.addOption(PYCLONE_IODINE, true, "Specify Cyclone Iodine file to run (double only)");
-        this.options.addOption(NICAD_BLOCKS, true, "Specify NiCad Blocks file to run (single or double)");
-        this.options.addOption(NICAD_FUNCTIONS, true, "Specify NiCad Functions file to run (single or double)");
-        this.options.addOption(MOSS, true, "Specify Moss file to run (single only)");
+        this.options.addOption(MODE, true,
+                "Set mode - (s)ingle, (d)ouble, (h)eader");
+        this.options.addOption(ONLY_SHOW_COUNTS, false,
+                "only show tool counts, no percentages or times");
+        this.options.addOption(PYCLONE_OXYGEN, true,
+                "Specify Cyclone Oxygen file to run (single mode only)");
+        this.options.addOption(PYCLONE_CHLORINE, true,
+                "Specify Cyclone Chlorine file to run (single or double)");
+        this.options.addOption(PYCLONE_IODINE, true,
+                "Specify Cyclone Iodine file to run (double only)");
+        this.options.addOption(NICAD_BLOCKS, true,
+                "Specify NiCad Blocks file to run (single or double)");
+        this.options.addOption(NICAD_FUNCTIONS, true,
+                "Specify NiCad Functions file to run (single or double)");
+        this.options.addOption(MOSS, true,
+                "Specify Moss file to run (single only)");
         this.parser = new DefaultParser();
     }
 
@@ -56,7 +70,8 @@ public class CLIParser {
      * <ul>
      *     <li>CloneHelpOptions - print the help dialog</li>
      *     <li>CloneHeaderOptions - print the header</li>
-     *     <li>CloneFileOptions - handle the passed files and print the similarities</li>
+     *     <li>CloneFileOptions - handle the passed files and print the
+     *     similarities</li>
      * </ul>
      *
      * @param args the command-line arguments to parse
@@ -91,7 +106,8 @@ public class CLIParser {
     }
 
     /**
-     * Processes CLI args and returns an object with the parsed files to be compared
+     * Processes CLI args and returns an object with the parsed files
+     * to be compared
      *
      * @param cmd the parsed arguments
      * @param mode the mode of the results (single/double)
