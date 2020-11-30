@@ -149,7 +149,7 @@ public class CLIParser {
         if (!cyclone) {
             throw new IllegalArgumentException("Must specify at least one Cyclone file");
         }
-        if (!benchmark) {
+        if (!benchmark && !cmd.hasOption(ONLY_SHOW_COUNTS)) {
             throw new IllegalArgumentException("Must specify at least one benchmark file");
         }
         return cloneOptions;
